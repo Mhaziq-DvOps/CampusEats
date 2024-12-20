@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initioal-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CampusEats</title>
-    <link rel="icon" href="asset/img/logo.png" type="image/icon type">
+    <link rel="icon" href="asset/img/CampusEatsLogo.png" type="image/icon type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
@@ -63,15 +63,15 @@
 
 
  
-
-<!-- first chatbot -->
+{{-- LATER MODIFFY IT --}}
+{{-- <!-- first chatbot -->
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   intent="WELCOME"
-  chat-title="Amy"
+  chat-title="AMY"
   agent-id="fa6702c0-320a-4d7f-8333-1eb8252437e4"
   language-code="en"
-></df-messenger>
+></df-messenger> --}}
 
 <!-- dialogflow cx  ally-->
 <!-- <script src="https://www.gstatic.com/dialogflow-console/fast/messenger-cx/bootstrap.js?v=1"></script>
