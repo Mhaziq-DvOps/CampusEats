@@ -65,3 +65,4 @@ Route::resource('biz_hour', HourController::class);
 Route::resource('faq', FaqController::class);
 
 Route::get('faq_index', [FaqController:: class, 'faqindex']) ;
+
