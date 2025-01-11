@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 
 ?>
 
+
+
 <div class="col-sm-6 clearfix">
 <div class="user-profile pull-right">
   

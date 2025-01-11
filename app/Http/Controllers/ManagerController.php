@@ -43,7 +43,7 @@ class ManagerController extends Controller
         $manager->updated_at=Carbon::now();;
         $manager->save();
 
-        return redirect()->route('dashboard')
+        return redirect()->route('')
                         ->with('success','Manager created successfully.');    
     }
 
@@ -82,7 +82,7 @@ class ManagerController extends Controller
             // return redirect ('layouts/index');
             //redirect betul
             //guna ni bawah dulu for now
-            return view ('layouts/index');
+             return view ('layouts/index');
         }
     }
 

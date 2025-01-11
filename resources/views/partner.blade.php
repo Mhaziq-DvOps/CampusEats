@@ -133,7 +133,7 @@
                                     {{ __('Register') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('manager_login') }}">
+                                <a class="btn btn-link" href="{{ route('login') }}">
                                            {{ __('Already have an account') }}
                                     </a>
 

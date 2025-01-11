@@ -21,14 +21,14 @@ if (Auth::check()) {
             <div class="navbar-nav ml-auto">
                 <a href="/" class="nav-item nav-link active">Home</a>
 
-                <a href="about" class="nav-item nav-link">About</a>
+                <a href="about" class="nav-item nav-link active">About</a>
                 
-                <a href="shop_category" class="nav-item nav-link">Shop</a>
+                <a href="shop_category" class="nav-item nav-link active">Shop</a>
 
-                <div class="nav-item dropdown">
+                <div class="nav-item dropdown show">
                 @if (Auth::check())
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu  ">
                         <a href="/profileDetail" class="dropdown-item">Profile</a>
                         <a href="order_history" class="dropdown-item">My Order</a> 
                             
@@ -43,7 +43,7 @@ if (Auth::check()) {
                 @else
               
 
-                <div class="nav-item dropdown">
+                <div class="nav-item dropdown show">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Login</a>
                     <div class="dropdown-menu">
                         <a href="/login" class="dropdown-item">Customer Login</a>
