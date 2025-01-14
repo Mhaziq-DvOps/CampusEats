@@ -88,12 +88,12 @@
                                             <tr>
                                                 <td>M{{$manager['Manager_id']}}</td>
                                                 <td>{{$manager['Name']}}</td>
-                                                <td>Restoran Taf Bistro</td>
+                                                <td>Farah Classic</td>
                                                 <td>
                                                     <a class="fa fa-ban fa-2x" href="{{ route('manager.edit', $manager->Manager_id) }}"
                                                         style = "color:#f44336; padding: 3px 8px;"></a>
                                                 </td>
-                                                <td>01.01.2020</td>
+                                                <td>01.12.2025</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -110,7 +110,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+                <p>© Copyright 2025. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->

@@ -1,3 +1,5 @@
+@include('managerBar')  <!-- This will include the manager's name dropdown -->
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -46,7 +48,7 @@
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="index.html"><img src="admin-assets/images/icon/APPXILON.png" alt="logo"></a>
+                    <a href="index.html"><img src="admin-assets/asset/img/CampusEatsLogo.png" alt="logo"></a>
                 </div>
             </div>
             <div class="main-menu">
@@ -98,8 +100,10 @@
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
                             <img class="avatar user-thumb" src="admin-assets/images/author/avatar.png" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Salim Kasim<i class="fa fa-angle-down"></i></h4>
-                            <div class="dropdown-menu">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+                                {{ $managerName }} <i class="fa fa-angle-down"></i>
+                             </h4>
+                                <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a>
                                 <a class="dropdown-item" href="#">Log Out</a>
@@ -420,7 +424,7 @@
                                         <td>Ramadhan Special</td>
                                         <td style="text-align:left">20% off from selected product. Enjoy !!!</td>
                                         <td>20%</td>
-                                        <td>4/10/2021</td>
+                                        <td>4/10/2024</td>
                                     </tr>
                                 </tbody>
                             </table>

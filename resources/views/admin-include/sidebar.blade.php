@@ -1,7 +1,7 @@
 <div class="sidebar-menu">
     <div class="sidebar-header">
         <div class="logo">
-            <a href="/base"><img src="{{URL::asset('admin-assets/images/APPXILON.png')}}" alt="logo"></a>
+            <a href="/base"><img src="{{URL::asset('admin-assets/images/CampusEatsLogo.png')}}" alt="logo"></a>
         </div>
     </div>
     <div class="main-menu">

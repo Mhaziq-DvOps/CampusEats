@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Become Our Partner') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url('/partnerStore') }}">
+                    <form method="POST" action="{{ route('partnerStore') }}">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Manager Name') }}</label>

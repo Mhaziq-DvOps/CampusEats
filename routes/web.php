@@ -4,12 +4,15 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\PayController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HourController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
@@ -53,19 +56,35 @@ Route::get('manager_login', function () {
     return view('auth/manager/login');
 });
 Route::post('manager_login', [ManagerController:: class, 'manager_login']) ;
+Route::resource('/manager', ManagerController::class);
+Route::post('/partnerStore',[ManagerController::class,'partnerStore']);
+
+
+
 
 //selepas manager login, manager akan ke dashboard
 Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+// In routes/web.php
+Route::get('/dashboard', [ManagerController::class, 'dashboardWithSession'])->middleware('auth');
+// Route::resource('/businesshour', BusinessHourController::class);
+Route::get('/dashboard', [ManagerController::class, 'dashboard'])->name('dashboard');
+
+
+
+
+Route::resource('/order', OrderController::class);
+//hanya manager yang berdaftar boleh access dashboard 
+Route::middleware(['auth'])->get('/dashboard', [ManagerController::class, 'dashboardWithSession']);
 
 
 //Manager / food stall able to register for CampusEats
 Route::get('/partner',[ManagerController::class,'partner']);
 Route::post('/shopStore',[ShopAdminController::class,'shopStore']);
+Route::resource('/payment', PayController::class);
+Route::post('/partnerStore', [ManagerController::class, 'partnerStore'])->name('partnerStore');
 
-Route::post('/partnerStore',[ManagerController::class,'partnerStore']);
 
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard']);
-Route::resource('/manager', ManagerController::class);
+Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 
 Route::resource('biz_hour', HourController::class);
 Route::resource('faq', FaqController::class);
@@ -96,6 +115,8 @@ Route::resource('/product_category', Product_CategoryController::class);
 Route::get('catalogue', [ProductController:: class, 'index']) ;
 Route::get('catalogueBooking', [ProductController:: class, 'catalogueBooking']) ;
 
+Route::get('search', [ProductController:: class, 'search']) ;
+Route::get('detail/{id}', [ProductController:: class, 'detail']) ;
 //user masukkan product ke cart
 Route::post('add_to_cart', [CartController:: class, 'addToCart']) ;
 Route::get('cartlist', [CartController:: class, 'cartList']) ;
@@ -106,6 +127,20 @@ Route::get('checkout_shipping', [CheckoutController:: class, 'orderDetails']) ;
 Route::post('orderplace', [CheckoutController:: class, 'orderPlace']) ;
 
 Route::get('orderplace', [CheckoutController:: class, 'summary']) ;
+Route::get('order_history', [UserController::class,'orderHistory']);
+Route::get('history_detail/{id}', [UserController::class,'viewHistory']);
 
-//process the order
+//process the order ``
 Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+
+
+//paparan admin
+Route::get('/admin',[UserController::class,'dash']);
+Route::resource('/term', TermController::class);
+Route::resource('/customer', CustomerController::class);
+Route::resource('/ban_user', BanController::class);
+Route::resource('/shop', ShopAdminController::class);
+Route::get('admin-login', function () {
+    return view('auth/admin/login');
+});
+Route::post('admin-login', [AdminController:: class, 'admin_login']) ;

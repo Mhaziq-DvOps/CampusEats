@@ -23,46 +23,38 @@ class ManagerController extends Controller
         return view('partnerRest');
     }
 
-    public function partnerStore(Request $request){
-        
-        $manager=new Manager;
-        $manager->Shop_Id=$request->input('Shop_Id');
-        $manager->Name=$request->input('Name');
-        $manager->Email=$request->input('Email');
-        $manager->Password=Hash::make($request->input('password_confirmation'));
-        // $manager->Password=$request->input(key: 'password_confirmation');
-        $manager->isBanned=2;
-        $manager->Phone=$request->input('Phone');
-        $manager->Street_1=$request->input('Street_1');
-        $manager->Postcode=$request->input('Postcode');
-        $manager->City=$request->input('City');
-        $manager->State=$request->input('State');
-        $manager->Ban='2';
-        $manager->Reason='null';
-        $manager->created_at=Carbon::now();
-        $manager->updated_at=Carbon::now();;
+    public function partnerStore(Request $request)
+    {
+        $manager = new Manager;
+        $manager->Shop_Id = $request->input('Shop_Id');
+        $manager->Name = $request->input('Name');
+        $manager->Email = $request->input('Email');
+        $manager->Password = Hash::make($request->input('password_confirmation'));
+        $manager->isBanned = 2;
+        $manager->Phone = $request->input('Phone');
+        $manager->Street_1 = $request->input('Street_1');
+        $manager->Postcode = $request->input('Postcode');
+        $manager->City = $request->input('City');
+        $manager->State = $request->input('State');
+        $manager->Ban = '2';
+        $manager->Reason = 'null';
+        $manager->created_at = Carbon::now();
+        $manager->updated_at = Carbon::now();
         $manager->save();
-
-        return redirect()->route('')
-                        ->with('success','Manager created successfully.');    
+    
+        return redirect()->route('dashboard')->with('success', 'Manager created successfully.');
     }
+    
 
 
+    // Handle manager login
     function manager_login(Request $req)
     {
         $manager= Manager:: where (['Email' =>$req->email])->first();
         if(!$manager || !Hash::check ($req ->password, $manager-> Password))
         {
             return "Username or password is not matched";
-            /*$logs=new Logs;
-            $logs->Manager_Id=Auth::id();
-            $logs->Log_Module=$req->input('Log_Module');
-            $logs->Log_Pay_Type=0;
-            $logs->Log_Status="Fail";
-            $logs->Log_Total_Price=0;
-            $logs->created_at=Carbon::now();
-            $logs->updated_at=Carbon::now();
-            $logs->save();*/
+
         }
         else if( $manager-> isBanned == 1)
         {
@@ -70,22 +62,10 @@ class ManagerController extends Controller
         }
         else {
             $req->session() ->put ('manager', $manager);
-            /*$logs=new Logs;
-            $logs->Manager_Id=Auth::id();
-            $logs->Log_Module=$req->input('Log_Module');
-            $logs->Log_Pay_Type=0;
-            $logs->Log_Status="Success";
-            $logs->Log_Total_Price=0;
-            $logs->created_at=Carbon::now();
-            $logs->updated_at=Carbon::now();
-            $logs->save();*/
-            // return redirect ('layouts/index');
-            //redirect betul
-            //guna ni bawah dulu for now
-             return view ('layouts/index');
+
+            return view ('layouts/index');
         }
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -145,4 +125,22 @@ class ManagerController extends Controller
     {
         //
     }
+    public function dashboardWithSession(Request $req)
+    {
+        // Check if the manager is logged in
+        if (Auth::guard('manager')->check()) { // Assuming manager uses a separate guard
+            // Get the logged-in manager's ID
+            $manager = Auth::guard('manager')->user();
+            
+            // Retrieve the manager's name
+            $managerName = $manager->Name;
+    
+            // Pass the manager's name to the view
+            return view('include.managerBar', compact('managerName'));
+        } else {
+            // If not logged in, redirect to manager login page
+            return redirect()->route('manager.login');
+        }
+    }
+    
 }
