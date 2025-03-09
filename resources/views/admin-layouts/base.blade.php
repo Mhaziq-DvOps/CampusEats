@@ -118,7 +118,7 @@
                                         <td>{{ $partner->Shop_Id ?? 'N/A' }}</td>
                                         <td>Food & Beverages</td>
                                         <td>{{ $partner->Name ?? 'N/A' }}</td>
-                                        <td>{{ $partner->created_at->format('d-m-Y') ?? 'N/A' }}</td>
+                                        <td>{{ $partner->created_at ?? 'N/A' }}</td>
                                     </tr>
                                     @empty
                                     <tr>

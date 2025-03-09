@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 <div class="col-sm-6 clearfix">
 <div class="user-profile pull-right">
-
     <img class="avatar user-thumb" src="admin-assets/images/author/avatar.png" alt="avatar">
     <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Admin <i class="fa fa-angle-down"></i> 
     </h4>
     <div class="dropdown-menu">
-        
         <a href="admin-login" class="dropdown-item">Logout</a>
     </div>
 </div>

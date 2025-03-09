@@ -1,3 +1,4 @@
+@extends('master')
 @include('include.header')
 
 <body>

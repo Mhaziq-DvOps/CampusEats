@@ -16,9 +16,11 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ShopAdminController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Product_CategoryController;
 
@@ -144,3 +146,6 @@ Route::get('admin-login', function () {
     return view('auth/admin/login');
 });
 Route::post('admin-login', [AdminController:: class, 'admin_login']) ;
+
+Route::get('/indexPend', [RestaurantController::class,'indexPend']);
+Route::resource('/shopcategory', ShopCategoryController::class);
