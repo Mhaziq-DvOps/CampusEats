@@ -63,7 +63,10 @@ class ManagerController extends Controller
         else {
             $req->session() ->put ('manager', $manager);
 
-            return view ('layouts/index');
+            // return view ('layouts/index');
+            //8/3/25
+
+            return redirect('/dashboard');
         }
     }
     /**

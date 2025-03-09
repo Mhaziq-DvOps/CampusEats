@@ -23,7 +23,7 @@ class OrderController extends Controller
         //
          $orders = Order::all();
 
-         return view('layouts.index')->with('orders', $orders);
+         return view('layouts.order')->with('orders', $orders);
 
         
      

@@ -1,9 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Manage Manager</title>
+    <title>Terms of Service</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{{ asset ('admin-assets/images/icon/favicon.ico')}}">
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/bootstrap.min.css')}}">
@@ -12,22 +13,18 @@
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/metisMenu.css')}}">
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/slicknav.min.css')}}">
-    <!-- amcharts css -->
+    <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <!-- Start datatable css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
-    <!-- style css -->
+    <!-- others css -->
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/typography.css')}}">
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/default-css.css')}}">
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/styles.css')}}">
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{ asset ('admin-assets/css/suneditor.css')}}">
     <!-- modernizr css -->
     <script src="{{asset('admin-assets/js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    <script src="{{asset('admin-assets/js/suneditor.js')}}"></script>
 </head>
-
 <body>
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -51,7 +48,7 @@
                             <h4 class="page-title pull-left">Dashboard</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
-                                <li><span>Manage Manager</span></li>
+                                <li><span>Terms of Service</span></li>
                             </ul>
                         </div>
                     </div>
@@ -61,48 +58,45 @@
             <!-- page title area end -->
             <div class="main-content-inner">
                 <div class="row">
-                    <!-- data table start -->
-                    <div class="col-12 mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row"><div class="col"><h4 class="header-title">List Manager</h4></div>
-                                <div class="col col-lg-2">
-                                    <a href='/add_man'>
-                                        <button type="button" class="btn btn-success mb-3" style="text-align: right;">Add Manager</button>
-                                    </a>
-                                </div>
-                                </div>
-                                <div class="data-tables">
-                                    <table id="dataTable" class="text-center">
-                                        <thead class="bg-light text-capitalize">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Name</th>
-                                                <th>Restaurant</th>
-                                                <th>Action</th>
-                                                <th>Approved Date:</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($manager as $manager)
-                                            <tr>
-                                                <td>M{{$manager['Manager_id']}}</td>
-                                                <td>{{$manager['Name']}}</td>
-                                                <td>Farah Classic</td>
-                                                <td>
-                                                    <a class="fa fa-ban fa-2x" href="{{ route('manager.edit', $manager->Manager_id) }}"
-                                                        style = "color:#f44336; padding: 3px 8px;"></a>
-                                                </td>
-                                                <td>01.12.2025</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                    <div class="col-lg-12 col-ml-12">
+                        <div class="row">
+                            <!-- Textual inputs start -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                        <div class ="col"><h4 class="header-title">Terms of Service</h4></div>
+                                        <div class="col col-lg-2">
+                                            <a href="{{ route('term.create') }}"><input type="button" value="Add Term"
+                                                class="btn btn-success mb-0"></a>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-12 mt-5" style="text-align: left;">
+                                            @foreach($terms as $term)
+                                            <div class="row">
+                                                <div class="col"><h5>{{$term['T_Topics']}}<h5></div>
+                                                <div class="col col-lg-2">
+                                                    <form action="{{ route('term.destroy', $term->T_Id) }}"
+                                                        method="POST">
+                                                        <a class="btn btn-primary" href="{{ route('term.edit', $term->T_Id) }}">Edit</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-success mb-0" style="text-align: right;">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <p>{{$term['T_Contents']}}<p><br>
+                                                @endforeach
+                                        </div>
+                                        <!--<div class="col-lg-12 mt-5" style="text-align: center;">
+                                            <button type="button" class="btn btn-primary mb-3">Save</button>
+                                        </div>-->
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Textual inputs end -->
                         </div>
-                    </div>
-                    <!-- data table end -->
+                    </div>                       
                 </div>
             </div>
         </div>
@@ -110,7 +104,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2024. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+                <p>© Copyright 2023. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->
@@ -303,12 +297,7 @@
     <script src="{{asset('admin-assets/js/metisMenu.min.js')}}"></script>
     <script src="{{asset('admin-assets/js/jquery.slimscroll.min.js')}}"></script>
     <script src="{{asset('admin-assets/js/jquery.slicknav.min.js')}}"></script>
-    <!-- Start datatable js -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
     <!-- others plugins -->
     <script src="{{asset('admin-assets/js/plugins.js')}}"></script>
     <script src="{{asset('admin-assets/js/scripts.js')}}"></script>

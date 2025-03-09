@@ -113,34 +113,34 @@ class CatalogueController extends Controller
         //
         $product = Product::find($id);
 
-        $avgRate = DB::select(DB::raw("SELECT ROUND( AVG(R_Rating),1 ) as average from review where P_Id=$id;"));
+        $avgRate = DB::select("SELECT ROUND( AVG(R_Rating),1 ) as average from review where P_Id=$id;");
         foreach ($avgRate as $row) {
             $avgRating = "$row->average";
         }
 
        
 
-        $five = DB::select(DB::raw("SELECT count(*) as rate from review where R_Rating=5 AND P_Id=$id;"));
+        $five = DB::select("SELECT count(*) as rate from review where R_Rating=5 AND P_Id=$id;");
         foreach ($five as $row) {
             $fiveRating = "$row->rate";
         }
 
-        $four = DB::select(DB::raw("SELECT count(*) as rate from review where R_Rating=4 AND P_Id=$id;"));
+        $four = DB::select("SELECT count(*) as rate from review where R_Rating=4 AND P_Id=$id;");
         foreach ($four as $row) {
             $fourRating = "$row->rate";
         }
 
-        $three = DB::select(DB::raw("SELECT count(*) as rate from review where R_Rating=3 AND P_Id=$id;"));
+        $three = DB::select("SELECT count(*) as rate from review where R_Rating=3 AND P_Id=$id;");
         foreach ($three as $row) {
             $threeRating = "$row->rate";
         }
 
-        $two = DB::select(DB::raw("SELECT count(*) as rate from review where R_Rating=2 AND P_Id=$id;"));
+        $two = DB::select("SELECT count(*) as rate from review where R_Rating=2 AND P_Id=$id;");
         foreach ($two as $row) {
             $twoRating = "$row->rate";
         }
 
-        $one = DB::select(DB::raw("SELECT count(*) as rate from review where R_Rating=1 AND P_Id=$id;"));
+        $one = DB::select("SELECT count(*) as rate from review where R_Rating=1 AND P_Id=$id;");
         foreach ($one as $row) {
             $oneRating = "$row->rate";
         }
@@ -224,7 +224,7 @@ class CatalogueController extends Controller
     public function showReview($id)
     {
         $product = Product::find($id);
-        $feedback = DB::select(DB::raw("SELECT R.Review_Id, U.name as C_Name, P.P_Name as P_Name, R.R_Rating, R.R_Comment, R_Sentiment
+        $feedback = DB::select("SELECT R.Review_Id, U.name as C_Name, P.P_Name as P_Name, R.R_Rating, R.R_Comment, R_Sentiment
         FROM review R
         INNER JOIN users U
           ON (R.User_Id = U.id)
@@ -232,7 +232,7 @@ class CatalogueController extends Controller
           ON (R.P_Id = P.P_Id)
         WHERE (R.P_Id=$id)
          GROUP BY Review_Id, U.name, P.P_Name, R_Rating, R.R_Comment, R_Sentiment
-         ORDER BY 1 ASC;"));
+         ORDER BY 1 ASC;");
         
         return view('layouts.product-review', compact('feedback'));
         

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Manage Manager</title>
+    <title>Banned Customer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{{ asset ('admin-assets/images/icon/favicon.ico')}}">
     <link rel="stylesheet" href="{{ asset ('admin-assets/css/bootstrap.min.css')}}">
@@ -39,6 +39,7 @@
     <!-- preloader area end -->
     <!-- page container area start -->
     <div class="page-container">
+        <!-- sidebar menu-->
         @include("admin-include.sidebar") <!-- sidebar menu -->
         <!-- main content area start -->
         <div class="main-content">
@@ -51,7 +52,7 @@
                             <h4 class="page-title pull-left">Dashboard</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.html">Home</a></li>
-                                <li><span>Manage Manager</span></li>
+                                <li><span>Banned User</span></li>
                             </ul>
                         </div>
                     </div>
@@ -65,37 +66,46 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row"><div class="col"><h4 class="header-title">List Manager</h4></div>
+                                <div class="row"><div class="col"><h4 class="header-title">List Banned User</h4></div>
                                 <div class="col col-lg-2">
-                                    <a href='/add_man'>
-                                        <button type="button" class="btn btn-success mb-3" style="text-align: right;">Add Manager</button>
-                                    </a>
                                 </div>
                                 </div>
                                 <div class="data-tables">
                                     <table id="dataTable" class="text-center">
-                                        <thead class="bg-light text-capitalize">
+                                        <thead class="text-uppercase bg-danger">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Name</th>
-                                                <th>Restaurant</th>
+                                                <th>Role</th>
                                                 <th>Action</th>
-                                                <th>Approved Date:</th>
+                                                <th>Reason:</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($customer as $customer)
+                                            <tr>
+                                                <td>C{{$customer['id']}}</td>
+                                                <td>{{$customer['name']}}</td>
+                                                <td>Customer</td>
+                                                <td>
+                                                    <a class="fa fa-check fa-2x" href="{{ route('customer.edit', $customer->C_Id) }}"
+                                                        style = "color:#4CAF50; padding: 3px 8px;"></a>
+                                                </td>
+                                                <td>{{$customer['reason']}}</td>
+                                            </tr>
+                                            @endforeach
                                             @foreach($manager as $manager)
                                             <tr>
                                                 <td>M{{$manager['Manager_id']}}</td>
                                                 <td>{{$manager['Name']}}</td>
-                                                <td>Farah Classic</td>
+                                                <td>Manager</td>
                                                 <td>
-                                                    <a class="fa fa-ban fa-2x" href="{{ route('manager.edit', $manager->Manager_id) }}"
-                                                        style = "color:#f44336; padding: 3px 8px;"></a>
+                                                    <a class="fa fa-check fa-2x" href="{{ route('manager.edit', $customer->C_Id) }}"
+                                                        style = "color:#4CAF50; padding: 3px 8px;"></a>
                                                 </td>
-                                                <td>01.12.2025</td>
+                                                <td>{{$manager['Reason']}}</td>
                                             </tr>
-                                            @endforeach
+                                            @endforeach                    
                                         </tbody>
                                     </table>
                                 </div>
@@ -107,13 +117,6 @@
             </div>
         </div>
         <!-- main content area end -->
-        <!-- footer area start-->
-        <footer>
-            <div class="footer-area">
-                <p>© Copyright 2024. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
-            </div>
-        </footer>
-        <!-- footer area end-->
     </div>
     <!-- page container area end -->
     <!-- offset area start -->

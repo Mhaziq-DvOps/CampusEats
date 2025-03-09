@@ -15,10 +15,10 @@
                 <li>Order Status</li>
             </ul>
         </div>
-        <div class="summary-item">
+        <div class="summary-item"> 
             <div class="mt-5" style="float:center;">
                 <h1>Your Order is <span class="label label-success">Success</span></h1>
-                <p>We received your purchase order;<br /> Thank You for using AppXilon!</p>
+                <p>We received your purchase order;<br /> Thank You for using CampusEats!</p>
             </div>
             <a href="/checkout_complete" class="btn btn-warning">Go to Order Status</a>
         </div>

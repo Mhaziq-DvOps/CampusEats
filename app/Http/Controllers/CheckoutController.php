@@ -108,7 +108,7 @@ class CheckoutController extends Controller
 
             $orderData =[
                 'body' => $text,
-                'orderText' => 'Total: RM'.$total.' in AppXilon',
+                'orderText' => 'Total: RM'.$total.' in CampusEats',
                 'url' => url('/'),
                 'thankyou' => $footer
             ];

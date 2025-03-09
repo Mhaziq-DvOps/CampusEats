@@ -10,6 +10,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HourController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\TermController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
@@ -21,6 +22,8 @@ use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ShopAdminController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\OrderTrendsController;
+use App\Http\Controllers\CustAnalyticsController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Product_CategoryController;
 
@@ -41,7 +44,7 @@ Route::get('profileDetail', [UserController:: class, 'profileDetail']) ;
 Route::get('/changePassword', [ChangePasswordController::class, 'showChangePasswordGet'])->name('changePasswordGet');
 
 // user boleh edit profile
-Route::get('edit/{id}', [UserController:: class, 'edit']) ;
+Route::get('edit/{id}', [UserController:: class, 'edit'])->name('edit') ;
 
 //update data
 Route::post('update', [UserController:: class, 'update']) -> name ('update') ;
@@ -75,6 +78,8 @@ Route::get('/dashboard', [ManagerController::class, 'dashboard'])->name('dashboa
 
 
 Route::resource('/order', OrderController::class);
+//to view order trends  analytics
+Route::get('/order_trends', [OrderTrendsController::class, 'analytics']); 
 //hanya manager yang berdaftar boleh access dashboard 
 Route::middleware(['auth'])->get('/dashboard', [ManagerController::class, 'dashboardWithSession']);
 
@@ -128,19 +133,31 @@ Route::get('removecart/{id}', [CartController:: class, 'removeCart']) ;
 Route::get('checkout_shipping', [CheckoutController:: class, 'orderDetails']) ;
 Route::post('orderplace', [CheckoutController:: class, 'orderPlace']) ;
 
+//checkout complete - order status
+Route::get('checkout_complete', function () {
+    return view('checkout_complete');
+});
 Route::get('orderplace', [CheckoutController:: class, 'summary']) ;
 Route::get('order_history', [UserController::class,'orderHistory']);
 Route::get('history_detail/{id}', [UserController::class,'viewHistory']);
+Route::get('invoice-order/{id}', [UserController::class, 'invoice']);
+
+
+//customer Analytics
+Route::get('/cust_analytics', [CustAnalyticsController::class, 'analytics']);
+
 
 //process the order ``
-Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+// Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
 
+/*******************************/
+/******* //paparan admin *******/
+/*******************************/
 
-//paparan admin
 Route::get('/admin',[UserController::class,'dash']);
-Route::resource('/term', TermController::class);
+// Route::resource('/term', TermController::class);
 Route::resource('/customer', CustomerController::class);
-Route::resource('/ban_user', BanController::class);
+// Route::resource('/ban_user', BanController::class);
 Route::resource('/shop', ShopAdminController::class);
 Route::get('admin-login', function () {
     return view('auth/admin/login');
@@ -148,4 +165,8 @@ Route::get('admin-login', function () {
 Route::post('admin-login', [AdminController:: class, 'admin_login']) ;
 
 Route::get('/indexPend', [RestaurantController::class,'indexPend']);
-Route::resource('/shopcategory', ShopCategoryController::class);
+// Route::resource('/shopcategory', ShopCategoryController::class);
+
+Route::resource('/term', TermController::class);
+//to ban user
+Route::resource('/ban_user', BanController::class);

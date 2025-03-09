@@ -40,11 +40,11 @@
                                 <p>
                                     Being a dynamic is having a lot of categories and continuously changing. This system is characterized as dynamic because the system is an open source that allow nearby shop to collab with CampusEats.
                                 </p>
-                                <p>
+                                {{-- <p>
                                 CampusEats allows the system to accept multiple catalogues from multiple industries and use the system as the medium for ordering a product online. 
-                                </p>
+                                </p> --}}
                                 <p>
-                                CampusEats provide various kinds of payment options such as credit and debit card, online banking, e-wallets and paypal for international transaction.
+                                CampusEats provide various kinds of payment options such as credit and debit card and pay by cash.
                                 </p>
                             </div>
                         </div>

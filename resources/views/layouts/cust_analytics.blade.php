@@ -69,7 +69,7 @@
 												<h1 class="mt-1 mb-3"><?php echo $totalCustomer?></h1>
 												<div class="mb-0">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i>  </span>
-													<span class="text-muted">Since February 2021</span>
+													<span class="text-muted">Since February 2024</span>
 												</div>
 											</div>
 										</div>
