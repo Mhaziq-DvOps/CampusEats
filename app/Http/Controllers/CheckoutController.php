@@ -173,7 +173,7 @@ class CheckoutController extends Controller
                     $booktable = $prod->BookTable;
                 }
 
-                $orType = DB::select(DB::raw("SELECT Order_Type FROM cart LIMIT 1;"));
+                $orType = DB::select("SELECT Order_Type FROM cart LIMIT 1;");
                 foreach ($orType as $row) {
                     $orderType = "$row->Order_Type";
                 }
@@ -216,11 +216,81 @@ class CheckoutController extends Controller
             }
         }
     }
+    // public function checkoutstripe()
+    // {
+    //     $cartitems = Cart::where('Cust_Id', Auth::id())->get();
+    //     Cart::destroy($cartitems);
+
+    //     return view('checkout_summary');
+    // }
+    //Update on 8 APRIL 2025
     public function checkoutstripe()
     {
-        $cartitems = Cart::where('Cust_Id', Auth::id())->get();
-        Cart::destroy($cartitems);
+         $cartitems = Cart::where('Cust_Id', Auth::id())->get();
 
-        return view('checkout_summary');
+    if ($cartitems->isEmpty()) {
+        return redirect('/cart')->with('message', 'No items in cart!');
     }
+
+    $total = 0;
+    foreach ($cartitems as $prod) {
+        $total += $prod->products->P_Price * $prod->Pro_Qty;
+        $bookdate = $prod->BookDate;
+        $booktime = $prod->BookTime;
+        $booktable = $prod->BookTable;
+        $bookpax = $prod->BookPax;
+    }
+
+    $order = new Order();
+    $order->User_Id = Auth::id();
+    $order->O_Name = Auth::user()->name;
+    $order->O_Email = Auth::user()->email;
+    $order->O_Street_1 = '-';
+    $order->O_Postcode = '-';
+    $order->O_City = '-';
+    $order->O_State = '-';
+    $order->O_Phone = '-';
+    $order->O_Notes = 'Stripe payment';
+    $order->O_Payment = 'Stripe';
+    $order->Tracking_No = rand(1000, 9999);
+    $order->Remarks = '-';
+    $order->O_Date = Carbon::now()->toDateString();
+    $order->O_Time = Carbon::now()->toTimeString();
+
+    $orType = DB::table('cart')->where('Cust_Id', Auth::id())->value('Order_Type');
+    $order->O_Type = $orType;
+    $order->Book_Date = $bookdate;
+    $order->Book_Time = $booktime;
+    $order->T_Id = $booktable;
+    $order->T_Pax = $bookpax;
+    $order->O_Total_Price = $total;
+    $order->save();
+
+    // Simpan log
+    $logs = new Logs();
+    $logs->Cust_Id = Auth::id();
+    $logs->Log_Module = 'Stripe Checkout';
+    $logs->Log_Pay_Type = 1; // 1 = Stripe
+    $logs->Log_Total_Price = $total;
+    $logs->Log_Status = 'Success';
+    $logs->created_at = Carbon::now();
+    $logs->updated_at = Carbon::now();
+    $logs->save();
+
+    // Simpan setiap produk ke dalam order_product
+    foreach ($cartitems as $item) {
+        OrderProduct::create([
+            'Order_Id' => $order->id,
+            'P_Id' => $item->Pro_Id,
+            'Order_Quantity' => $item->Pro_Qty,
+            'Order_Price' => $item->products->P_Price * $item->Pro_Qty,
+        ]);
+    }
+
+    // Delete cart
+    Cart::destroy($cartitems->pluck('id'));
+
+    return view('checkout_summary', compact('order'));
+}
+
 }

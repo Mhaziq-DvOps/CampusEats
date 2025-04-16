@@ -24,13 +24,26 @@
             </ul>
         </div>
 
-        <ol class="progtrckr" data-progtrckr-steps="5">
+        {{-- <ol class="progtrckr" data-progtrckr-steps="5">
             <li class="progtrckr-done">Order Recieve</li><!--
             --><li class="progtrckr-todo">Preparing</li><!--
             --><li class="progtrckr-todo">Ready</li><!--
             --><li class="progtrckr-todo">Complete</li><!--
             --><li class="progtrckr-todo">Delivered</li>
-        </ol>
+        </ol> --}}
+
+        {{-- //Update the order status to "Complete" in the database on 8 april 2025- --}}
+        @php
+    $statuses = ['Order Recieve', 'Preparing', 'Ready', 'Complete', 'Delivered'];
+    $currentStatus = $order->O_Status ?? 'Order Recieve'; // fallback kalau null
+    $currentIndex = array_search($currentStatus, $statuses);
+    @endphp
+
+    <ol class="progtrckr" data-progtrckr-steps="5">
+    @foreach ($statuses as $index => $status)
+        <li class="{{ $index <= $currentIndex ? 'progtrckr-done' : 'progtrckr-todo' }}">{{ $status }}</li>
+    @endforeach
+    </ol>
 
     </div>
 </div>

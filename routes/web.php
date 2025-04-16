@@ -14,6 +14,7 @@ use App\Http\Controllers\TermController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
@@ -31,6 +32,8 @@ Route::get('/', function () {
     return view('home');
 });
 Auth::routes();
+Route::get('/', [ProductController::class, 'popularProducts']);
+
 
 Route::get('about', function () {
     return view('about');
@@ -78,6 +81,8 @@ Route::get('/dashboard', [ManagerController::class, 'dashboard'])->name('dashboa
 
 
 Route::resource('/order', OrderController::class);
+Route::get('/track-order', [OrderController::class, 'trackStatus'])->name('track.order');
+
 //to view order trends  analytics
 Route::get('/order_trends', [OrderTrendsController::class, 'analytics']); 
 //hanya manager yang berdaftar boleh access dashboard 
@@ -137,18 +142,29 @@ Route::post('orderplace', [CheckoutController:: class, 'orderPlace']) ;
 Route::get('checkout_complete', function () {
     return view('checkout_complete');
 });
+//To See the checkout summary
+Route::get('checkout_summary', function () {
+    return view('checkout_summary');
+});
+Route::post('webhook', [CheckoutController::class, 'stripePay']);
+
+Route::get('checkout_summary', [CheckoutController:: class, 'checkoutstripe']) ;
+
 Route::get('orderplace', [CheckoutController:: class, 'summary']) ;
 Route::get('order_history', [UserController::class,'orderHistory']);
 Route::get('history_detail/{id}', [UserController::class,'viewHistory']);
 Route::get('invoice-order/{id}', [UserController::class, 'invoice']);
 
+//writeReview and submitReview
+Route::get('write-review/{P_Id}', [ReviewController:: class, 'addReview']) ;
+Route::post('/submitReview', [ReviewController:: class, 'submitReview']) -> name ('submitReview') ;
 
 //customer Analytics
 Route::get('/cust_analytics', [CustAnalyticsController::class, 'analytics']);
 
 
 //process the order ``
-// Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+ Route::get('process-transaction', [PayPalController::class, 'processTransaction'])->name('processTransaction');
 
 /*******************************/
 /******* //paparan admin *******/
@@ -170,3 +186,9 @@ Route::get('/indexPend', [RestaurantController::class,'indexPend']);
 Route::resource('/term', TermController::class);
 //to ban user
 Route::resource('/ban_user', BanController::class);
+
+
+
+
+//to select for product
+Route::get('/catalogue/{id}', [ProductController::class, 'detail'])->name('catalogue.detail');

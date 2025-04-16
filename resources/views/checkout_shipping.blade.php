@@ -189,7 +189,10 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 <!-- Shipping Address End -->
 
 <?php
-\Stripe\Stripe::setApiKey('sk_test_51KHHOyEL224hnqnlZYzGWFqurcYpg8dcajbhqSipQgB8XfwBVy7sv0ZwtoaHlj93yF6tZDpbXPb2X1eNMBkHejhV00o3yVsImu');
+
+\Stripe\Stripe::setApiKey(apiKey:'sk_test_51Q7u8j2L1aVEtKIRHG670oCl9ogBxkSVcURtf2w8T2eStpIdPmKFrFGgV2GQwgIM09NILPLMs3xgmdJCe56nAcxJ00PjNu8Gz9');
+
+// \Stripe\Stripe::setApiKey(apiKey: 'sk_test_51KHHOyEL224hnqnlZYzGWFqurcYpg8dcajbhqSipQgB8XfwBVy7sv0ZwtoaHlj93yF6tZDpbXPb2X1eNMBkHejhV00o3yVsImu');
 
 $session = \Stripe\Checkout\Session::create([
     'line_items' => [[
@@ -214,7 +217,8 @@ $session = \Stripe\Checkout\Session::create([
 
 @section('scripts')
 <script>
-const stripe = Stripe('pk_test_51KHHOyEL224hnqnlcij1l50AfvVQYkaLSDaheOu9qreC13JYqWeEL6u27qwBeaiVTMahXJ39lq3LSXbyrbibqLBf00t6wBOtpU')
+   const stripe = Stripe('pk_test_51Q7u8j2L1aVEtKIRAE0zyXAqi8nZNX6M5UOrnrDiy10jKnAVJuwvsZmi2kkoQB5xPCd8AlGPmz7i2cJuJyQ17Ybi00FTMzZOFw')
+// const stripe = Stripe('pk_test_51KHHOyEL224hnqnlcij1l50AfvVQYkaLSDaheOu9qreC13JYqWeEL6u27qwBeaiVTMahXJ39lq3LSXbyrbibqLBf00t6wBOtpU')
 const btn = document.getElementById("stripe-checkout")
 btn.addEventListener('click', function(e){
     e.preventDefault();

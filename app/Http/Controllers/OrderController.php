@@ -148,5 +148,13 @@ class OrderController extends Controller
         ]);
 
         return redirect()->back();    }
+
+    public function trackStatus()
+    {
+    $order = Order::where('User_Id', Auth::id())->latest()->first(); // ikut user login
+    return view('orderstatus')->with('order', $order);
+    
+    }
+
 }
 

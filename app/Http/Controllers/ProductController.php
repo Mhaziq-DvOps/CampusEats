@@ -107,4 +107,18 @@ class ProductController extends Controller
         $data = Product::where('P_Name', 'like', '%' . $req->input('query') . '%')->get();
         return view('search', ['product' => $data]);
     }
+
+
+public function popularProducts()
+{
+    $popularProducts = Product::select('product.*', DB::raw('SUM(order_product.Order_Quantity) as total_ordered'))
+        ->join('order_product', 'product.P_Id', '=', 'order_product.P_Id')
+        ->groupBy('product.P_Id')
+        ->orderByDesc('total_ordered')
+        ->take(6) // ambil top 6
+        ->get();
+
+    return view('home', compact('popularProducts'));
+}
+
 }
