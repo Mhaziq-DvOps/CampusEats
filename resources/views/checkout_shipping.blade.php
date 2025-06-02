@@ -168,11 +168,12 @@ require_once __DIR__.'/../../../vendor/autoload.php';
                             <hr>
                             <div class="payment-option">
                                 <button type="submit" name="payment" value="Cash" class="btn btn-success w-100 mt-3">Pay with Cash</button>
-                                <a class="btn w-100 mt-3" href="{{ route('processTransaction') }}" style="background-color:#fbaf32">PayPal Payment</a>
+                                {{-- not using paypal --}}
+                                {{-- <a class="btn w-100 mt-3" href="{{ route('processTransaction') }}" style="background-color:#fbaf32">PayPal Payment</a>
                                 @if(\Session::has('error'))
                                 <div class="alert alert-danger">{{ \Session::get('error') }}</div>
                                 {{ \Session::forget('error') }}
-                                @endif
+                                @endif --}}
                                 @if(\Session::has('success'))
                                 <div class="alert alert-success">{{ \Session::get('success') }}</div>
                                 {{ \Session::forget('success') }}

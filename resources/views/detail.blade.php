@@ -41,7 +41,7 @@
                     </p>
 
                     @if($detail['P_Status'] == 1)
-                    <div class="menu-cart">
+                    {{-- <div class="menu-cart">
                         <form action="/add_to_cart" method="POST">
                             @csrf
                             <input type="hidden" name="Pro_Id" value="{{$detail['P_Id']}}">
@@ -55,7 +55,32 @@
                     </div>
                     @endif
 
-                </div>
+                </div> --}}
+
+                <form action="/add_to_cart" method="POST">
+                    @csrf
+                    <input type="hidden" name="Pro_Id" value="{{ $detail['P_Id'] }}">
+                    
+                    {{-- Add quantity input --}}
+                    <div class="form-group mt-2 mb-2">
+                        <label for="Pro_Qty">Quantity:</label>
+                        <input type="number" name="Pro_qty" id="Pro_qty" class="form-control" min="1" value="1" required>
+                    </div>
+                
+                    <button class="btn btn-primary">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                    </button>
+                </form>
+            @else
+                <input type="hidden" name="Pro_Id" value="{{ $detail['P_Id'] }}">
+                <button disabled class="btn btn-primary">
+                    <i class="fa fa-shopping-cart"></i> Out of Stock
+                </button>
+            @endif
+        </div>
+        
+
+
                 <div class="single-tags">
                     <a href="">Farah Food Hub</a>
                     <a href="">Burger</a>

@@ -42,7 +42,7 @@ class ManagerController extends Controller
         $manager->updated_at = Carbon::now();
         $manager->save();
     
-        return redirect()->route('dashboard')->with('success', 'Manager created successfully.');
+        return redirect()->route('layouts.index')->with('success', 'Manager created successfully.');
     }
     
 

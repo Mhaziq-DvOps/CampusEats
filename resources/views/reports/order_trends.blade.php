@@ -269,8 +269,9 @@
         </script>
 
         <!-- Payment Types PIE CHART-->
+        //paypal is removed becase im using stripe, paypal is cancelled
         <script>
-            var xValues = ["Cash", "PayPal"];
+            var xValues = ["Cash", "Stripe"];
             var yValues = <?php echo $orderPayment; ?>;
             var barColors = [
             "#004c6d",

@@ -16,16 +16,22 @@ class CatalogueController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return   view
      */
+   
     public function index()
     {
-        //
+         
 
-        $products = DB::table('product')->get();
+        
+
+         $products = DB::table('product')->get();
         $category = Product_Category::all();
 
         return view('layouts.catalogue')->with('products', $products)->with('category', $category);
+
+
+
 
     }
 

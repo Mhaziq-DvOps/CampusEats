@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-//use App\Models\ManagerLogs;
 use App\Models\Order;
+//use App\Models\ManagerLogs;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -21,12 +20,9 @@ class OrderController extends Controller
     public function index()
     {
         //
-         $orders = Order::all();
+        $orders = Order::all();
 
-         return view('layouts.order')->with('orders', $orders);
-
-        
-     
+        return view('layouts.order')->with('orders', $orders);
     }
 
     public function search(Request $request) 
@@ -112,7 +108,9 @@ class OrderController extends Controller
 
         $logs->save();*/
 
-        return redirect()->route('order.index')->with('success', 'Order updated successfully');;
+        return redirect()
+        ->route('order.index')
+        ->with('success', 'Order updated successfully');
     }
 
     /**
@@ -148,13 +146,5 @@ class OrderController extends Controller
         ]);
 
         return redirect()->back();    }
-
-    public function trackStatus()
-    {
-    $order = Order::where('User_Id', Auth::id())->latest()->first(); // ikut user login
-    return view('orderstatus')->with('order', $order);
-    
-    }
-
 }
 

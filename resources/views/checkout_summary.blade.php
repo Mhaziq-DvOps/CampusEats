@@ -15,13 +15,18 @@
                 <li>Order Status</li>
             </ul>
         </div>
-        <div class="summary-item"> 
+        <div class="summary-item">
+            <div class="mt-5" style="float:center;">
+                <h1>Your Order is <span class="label label-success">Success</span></h1>
+                <p>We received your purchase order;<br /> Thank You for using CampusEats!</p>
+            </div>
+        {{-- <div class="summary-item"> 
             <div class="mt-5" style="float:center;">
                 <h1>Your Order is <span class="label label-success">Success</span></h1>
                 <p>We received your purchase order;<br /> Thank You for using CampusEats!</p>
                 <p>Tracking No:{{$order->Tracking_No}}</p>
                 <p>Total Paid: RM {{$order->O_Total_Price}}</p>
-            </div>
+            </div> --}}
             <a href="/checkout_complete" class="btn btn-warning">Go to Order Status</a>
         </div>
     </div>

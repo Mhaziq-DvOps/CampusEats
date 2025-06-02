@@ -107,7 +107,9 @@
                                             </div>
                                         </div>
 
-                                        {{-- Add Features Attributes FORM --}}
+                                    {{-- Comment because unused on 6 May 2025 --}}
+
+                                        {{-- Add Features Attributes FORM
                                         @for ($i=0; $i <= 4; $i++) <div class="form-row">
 
                                             <div class="col-md-4 mb-3">
@@ -124,7 +126,7 @@
                                             </div>
 
                                         </div>
-                                        @endfor
+                                        @endfor --}}
 
 
 

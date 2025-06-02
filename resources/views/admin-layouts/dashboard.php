@@ -441,7 +441,7 @@
     <!-- footer area start-->
     <footer>
         <div class="footer-area">
-        <p>© Copyright 2024. All rights reserved. Template by  
+        <p>© Copyright 2025. All rights reserved. Template by  
             <a href="https://colorlib.com/wp/" target="_blank">Colorlib</a>
         </p>
         </div>

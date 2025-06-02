@@ -1,0 +1,135 @@
+                        {{-- The catalogue --}}
+
+                         @foreach ($catProduct as $item) 
+                            <div class="item {{$item->P_Id==1?'active':''}}">
+                                <div class="menu-item d-flex flex wrap">
+                                    <div class="menu-img ">
+                                        <img src="{{asset('images/'. $item->P_Image)}}" alt="Image">
+                                    </div>
+                                    <div class="menu-text">
+                                        <h3><span><a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a></span> <strong>RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong></h3>
+                                        <br>
+                                        
+                                        <p>{{$item->S_Description}}</p>
+                                        
+
+                                        
+                                        @if($item->P_Status == 1)
+                                            <label class="badge bg-success">Avaiable</label>
+                                        @else
+                                            <label class="badge bg-danger">Unavaiable</label>
+                                        @endif
+                                    </div>
+                                    @if($item->P_Status == 1)
+                                        <div class="menu-cart">
+                                            <form action="/add_to_cart" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="Pro_Id" value="{{$item->P_Id}}">
+                                                <input type="hidden" id="otype" name="otype" value="{{$order}}">
+                                                <input type="hidden" id="bookdate" name="bookdate" value="{{$bookdate}}">
+                                                <input type="hidden" id="booktime" name="booktime" value="{{$booktime}}">
+                                                <input type="hidden" id="booktable" name="booktable" value="{{$booktable}}"> 
+                                                <button class="button-cart addToCartBtn mt-2"><i class="fa fa-shopping-cart"></i></button>
+                                        </div>
+                                    @else
+                                        <div class="menu-cart">
+                                            <input type="hidden" name="Pro_Id" value="{{$item->P_Id}}">
+                                            <button disabled class="button-cart addToCartBtn"><i class="fa fa-shopping-cart"></i></button>
+                                        </div>
+                                    @endif
+                                    <div class="col-lg-2">
+                                        <input type="hidden" value="{{$item->P_Id}}" class="Pro_Id">
+                                        <div class="quantity input-group">
+                                            <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
+                                            <input type="number" step="1" max="10" value="1"  name="Pro_qty" class="quantity-field border-0 text-center w-80" style="width:100px">
+                                            <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm changeQuantity" data-field="Pro_qty">
+                                        </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        </div> 
+
+
+
+                             {{-- The catalogue --}}
+
+                        {{-- @foreach ($catProduct as $item) 
+                            <div class="item {{$item->P_Id==1?'active':''}}">
+                                <div class="menu-item d-flex flex wrap">
+                                    <div class="menu-img ">
+                                        <img src="{{asset('images/'. $item->P_Image)}}" alt="Image">
+                                    </div>
+                                    <div class="menu-text">
+                                        <h3><span><a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a></span> <strong>RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong></h3>
+                                        <br>
+                                        
+                                        <p>{{$item->S_Description}}</p>
+                                        
+
+                                        
+                                        @if($item->P_Status == 1)
+                                            <label class="badge bg-success">Avaiable</label>
+                                        @else
+                                            <label class="badge bg-danger">Unavaiable</label>
+                                        @endif
+                                    </div>
+                                    @if($item->P_Status == 1)
+                                        <div class="menu-cart">
+                                            <form action="/add_to_cart" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="Pro_Id" value="{{$item->P_Id}}">
+                                                <input type="hidden" id="otype" name="otype" value="{{$order}}">
+                                                <input type="hidden" id="bookdate" name="bookdate" value="{{$bookdate}}">
+                                                <input type="hidden" id="booktime" name="booktime" value="{{$booktime}}">
+                                                <input type="hidden" id="booktable" name="booktable" value="{{$booktable}}"> 
+                                                <button class="button-cart addToCartBtn mt-2"><i class="fa fa-shopping-cart"></i></button>
+                                        </div>
+                                    @else
+                                        <div class="menu-cart">
+                                            <input type="hidden" name="Pro_Id" value="{{$item->P_Id}}">
+                                            <button disabled class="button-cart addToCartBtn"><i class="fa fa-shopping-cart"></i></button>
+                                        </div>
+                                    @endif
+                                    <div class="col-lg-2">
+                                        <input type="hidden" value="{{$item->P_Id}}" class="Pro_Id">
+                                        <div class="quantity input-group">
+                                            <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
+                                            <input type="number" step="1" max="10" value="1"  name="Pro_qty" class="quantity-field border-0 text-center w-80" style="width:100px">
+                                            <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm changeQuantity" data-field="Pro_qty">
+                                        </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        </div> --}}
+
+
+
+ @section('scripts')
+<script>
+var slideIndex = 1;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" activer", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " activer";
+  setTimeout(showSlides, 8000); // Change image every 8 seconds
+}
+</script> 
+ @endsection  

@@ -113,9 +113,10 @@
                                                     aria-describedby="inputGroupPrepend" name="P_Quantity">
                                             </div>
                                         </div>
+                                        
 
-
-                                        {{-- Add Features Attributes FORM --}}
+                                        {{-- Comment because unused on 6 May 2025 --}}
+                                        {{-- Add Features Attributes FORM
                                         @for ($i=0; $i <= 4; $i++) <div class="form-row">
 
                                             <div class="col-md-4 mb-3">
@@ -134,7 +135,7 @@
 
 
                                 </div>
-                                @endfor
+                                @endfor --}}
 
 
 
@@ -176,7 +177,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" style="float: right; margin-right: 10px"
-                                    class="btn btn-success mb-3" name="upload">Edit</button>
+                                    class="btn btn-success mb-3" name="upload">Save</button>
                                 <a class="btn btn-danger" style="float: right; margin-right: 10px"
                                     href="{{ route('catalogues.index') }}">Back</a>
                                 </form>

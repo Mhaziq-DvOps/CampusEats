@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DataController;
@@ -82,6 +83,7 @@ Route::get('/dashboard', [ManagerController::class, 'dashboard'])->name('dashboa
 
 Route::resource('/order', OrderController::class);
 Route::get('/track-order', [OrderController::class, 'trackStatus'])->name('track.order');
+Route::get('/order-status/{id}', [OrderController::class, 'showOrderStatus'])->name('order.status');
 
 //to view order trends  analytics
 Route::get('/order_trends', [OrderTrendsController::class, 'analytics']); 
@@ -181,14 +183,31 @@ Route::get('admin-login', function () {
 Route::post('admin-login', [AdminController:: class, 'admin_login']) ;
 
 Route::get('/indexPend', [RestaurantController::class,'indexPend']);
-// Route::resource('/shopcategory', ShopCategoryController::class);
+ Route::resource('/shopcategory', ShopCategoryController::class);
 
 Route::resource('/term', TermController::class);
 //to ban user
 Route::resource('/ban_user', BanController::class);
 
+//logs Pays
+Route::get('/logs_pay',[LogController::class,'paymentIndex']);
+//record logs for login
+Route::get('/logs_login',[LogController::class,'loginIndex']);
 
 
 
 //to select for product
 Route::get('/catalogue/{id}', [ProductController::class, 'detail'])->name('catalogue.detail');
+
+//admin create new restaurant
+Route::get('/add_rest', function () {
+    return view('admin-layouts.add_rest');
+});
+Route::get('/man_rest', function () {
+    return view('admin-layouts.man_rest');
+});
+Route::get('/pending', function () {
+    return view('admin-layouts.pending');
+});
+
+Route::get('/layouts.index', [ManagerController::class, 'partner'])->name('layouts.index');

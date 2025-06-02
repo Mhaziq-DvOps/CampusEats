@@ -23,7 +23,11 @@ if (Auth::check()) {
 
                 <a href="about" class="nav-item nav-link active">About</a>
                 
-                <a href="shop_category" class="nav-item nav-link active">Shop</a>
+                {{-- comment on 5 May 2025 --}}
+                {{-- <a href="shop_category" class="nav-item nav-link active">Shop</a> --}}
+
+                <a href="catalogue" class="nav-item nav-link active">Food</a>
+                {{-- "previously shop_category" , Edited on 20April2025--}}
 
                 <div class="nav-item dropdown show">
                 @if (Auth::check())

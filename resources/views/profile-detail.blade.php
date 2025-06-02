@@ -9,7 +9,7 @@
                 </div>
                 @foreach ($list as $item)
                 <centre><div>
-               <img src= "asset/img/User1.jpg" alt="Avatar" class="avatarprofile">
+               {{-- <img src= "asset/img/User1.jpg" alt="Avatar" class="avatarprofile"> --}}
                 
                </centre></div>
                 <div class="panel panel-primary">

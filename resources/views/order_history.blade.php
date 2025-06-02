@@ -32,12 +32,12 @@
                             
                             @if($item->O_Type == 'dineIn')
                             <div class="pull-right"><label class="label label-primary mr-2">Dine In</label></div>
-                            @elseif($item->O_Type == 'booking')
+                            {{-- @elseif($item->O_Type == 'booking')
                             <div class="pull-right"><label class="label mr-2" style="background-color: pink;">Booking</label></div>
                             @elseif($item->O_Type == 'pickUp')
                             <div class="pull-right"><label class="label label-info mr-2">Pick Up</label></div>
                             @else
-                            <div class="pull-right"><label class="label label-default mr-2">Delivery</label></div>
+                            <div class="pull-right"><label class="label label-default mr-2">Delivery</label></div> --}}
                             @endif
                             Total Price: RM{{ number_format((float) $item->O_Total_Price, 2, '.', '') }} <br />
                             
@@ -48,12 +48,12 @@
                             <div class="pull-right"><label class="label label-danger">Canceled</label></div>
                             @if($item->O_Type == 'dineIn')
                             <div class="pull-right"><label class="label label-warning mr-2">Dine In</label></div>
-                            @elseif($item->O_Type == 'booking')
+                            {{-- @elseif($item->O_Type == 'booking')
                             <div class="pull-right"><label class="label mr-2" style="background-color: pink;">Booking</label></div>
                             @elseif($item->O_Type == 'pickUp')
                             <div class="pull-right"><label class="label label-warning mr-2">Pick Up</label></div>
                             @else
-                            <div class="pull-right"><label class="label label-warning mr-2">Delivery</label></div>
+                            <div class="pull-right"><label class="label label-warning mr-2">Delivery</label></div> --}}
                             @endif
                             Total Price: RM{{ number_format((float) $item->O_Total_Price, 2, '.', '') }} <br />
                         </div>

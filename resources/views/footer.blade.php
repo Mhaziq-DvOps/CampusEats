@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5">
+            {{-- <div class="col-lg-5">
                 <div class="footer-newsletter">
                     <h2>Let's become our partner!</h2>
                     <p>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="copyright">
         <div class="container">
             <p>Copyright &copy; <a href="#">CampusEats Online Dynamic Ordering</a>, All Right Reserved.</p>

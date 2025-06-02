@@ -16,15 +16,16 @@
                     </li>
                     <li><a href="/catalogues"><i class="fa fa-file"></i><span>Catalogue</span></a></li>
                     <li><a href="/promotion"><i class="fa fa-file"></i><span>Promotion</span></a></li>
-                    <li><a href="javascript:void(0)" aria-expanded="true"><i
-                                class="ti-layout-sidebar-left"></i><span>Booking
-                            </span></a>
-                        <ul class="collapse">
+                 {{-- Decided only book for dine in, and no other specal booking --}}
+                    {{-- <li><a href="javascript:void(0)" aria-expanded="true"><i --}}
+                                {{-- class="ti-layout-sidebar-left"></i><span>Booking --}}
+                            {{-- </span></a> --}}
+                        {{-- <ul class="collapse">
                             <li><a href="/bookinglist">Booking List</a></li>
                             <li><a href="/seatmap">Seat Map</a></li>
 
-                        </ul>
-                    </li>
+                        </ul> --}}
+                    {{-- </li> --}}
                     <li><a href="/cust_analytics"><i class="ti-bar-chart"></i> <span>Customer Analytics</span></a></li>
                     <li><a href="/order_trends"><i class="ti-bar-chart-alt"></i> <span>Ordering Trends</span></a></li>
                     <li><a href="/feedback"><i class="ti-comments"></i> <span>Feedback</span></a></li>

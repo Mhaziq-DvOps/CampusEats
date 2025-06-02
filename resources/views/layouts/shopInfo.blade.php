@@ -1,4 +1,29 @@
-@extends('master')
+@include('include.header')
+
+<body>
+
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+
+    <!-- page container area start -->
+    <div class="page-container">
+
+        <!-- sidebar menu area start -->
+        @include('include.sidebar')
+        <!-- sidebar menu area end -->
+
+        <!-- main content area start -->
+        <div class="main-content">
+
+            <!-- header area start -->
+            @include('include.header_area')
+            <!-- header area end -->
+
+
+{{-- @extends('master')
 @include('include.header')
 
 <body>
@@ -18,6 +43,8 @@
             <!-- header area start -->
             @include('include.header_area')
             <!-- header area end -->
+
+             --}}
             <!-- page title area start -->
             <div class="page-title-area">
                 <div class="row align-items-center">
@@ -161,7 +188,7 @@
     <!-- page container area end -->
     <!-- jquery latest version -->
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
-    <!-- bootstrap 4 js -->
+    <!-- bootstrap 5 js -->
     <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>

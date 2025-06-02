@@ -141,6 +141,9 @@ class ShopController extends Controller
             return redirect('/');
         }
     }
+
+
+
     public function inshop($Cat_Slug, $S_Name)
     {
         if(Shop_Category::where('S_Cat_Slug', $Cat_Slug)->exists())

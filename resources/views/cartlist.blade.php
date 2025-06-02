@@ -15,7 +15,7 @@
                 <li class="item item-heading">Item</li>
                 <li class="price"> Price</li>
                 <li class="quantity">Quantity</li>
-                <li class="subtotal">Subtotal</li>
+                <li class="subtotal">  Subtotal</li>
                 </ul>
             </div>
             @if($product->count()>0)
@@ -92,7 +92,7 @@
 <!-- Menu End -->
 @endsection
 
-@section('scripts')
+{{-- @section('scripts')
 <script>
 function incrementValue(e) {
         e.preventDefault();
@@ -135,6 +135,66 @@ $('.changeQuantity').click(function (e) {
 
 
 </script>
-@endsection
+@endsection --}}
 
+@section('scripts')
+<script>
+$(document).ready(function () {
+    function recalculateSubtotal(parent) {
+        const price = parseFloat(parent.find('.price').text());
+        const quantity = parseInt(parent.find('input[name="quantity"]').val());
+        const subtotal = price * quantity;
+        parent.find('.subtotal').text(subtotal.toFixed(2));
+    }
+
+    function recalculateTotal() {
+        let total = 0;
+        $('.basket-product').each(function () {
+            const quantity = parseInt($(this).find('input[name="quantity"]').val());
+            const price = parseFloat($(this).find('.price').text());
+            if (!isNaN(price) && !isNaN(quantity)) {
+                total += price * quantity;
+            }
+        });
+
+        // Update both total price displays
+        $('.pricing .price').each(function () {
+            $(this).text(total.toFixed(2));
+        });
+    }
+
+    $(document).on('click', '.button-plus', function (e) {
+        e.preventDefault();
+        const parent = $(this).closest('.basket-product');
+        const input = parent.find('input[name="quantity"]');
+        let currentVal = parseInt(input.val());
+
+        if (!isNaN(currentVal) && currentVal < 10) {
+            input.val(currentVal + 1);
+        } else {
+            input.val(10);
+        }
+
+        recalculateSubtotal(parent);
+        recalculateTotal();
+    });
+
+    $(document).on('click', '.button-minus', function (e) {
+        e.preventDefault();
+        const parent = $(this).closest('.basket-product');
+        const input = parent.find('input[name="quantity"]');
+        let currentVal = parseInt(input.val());
+
+        if (!isNaN(currentVal) && currentVal > 1) {
+            input.val(currentVal - 1);
+        } else {
+            input.val(1);
+        }
+
+        recalculateSubtotal(parent);
+        recalculateTotal();
+    });
+});
+</script>
+@endsection
     

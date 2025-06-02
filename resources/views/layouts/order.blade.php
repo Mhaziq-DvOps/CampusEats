@@ -205,7 +205,7 @@
                                                         </tr>
                                                     </thead>
                                                     @php
-                                                        $Completed = App\Models\Order::where('O_Status', 3)->get();
+                                                        $Completed = App\Models\Order::where('O_Status', 4)->get();
                                                     @endphp
                                                     @foreach ($Completed as $completed)
                                                         <tbody>

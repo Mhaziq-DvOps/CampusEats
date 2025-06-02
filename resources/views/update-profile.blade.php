@@ -23,7 +23,7 @@
 
             <centre><div>
                
-               <img src= "images/User1.jpg" alt="MyImage" class="avatarprofile">
+               {{-- <img src= "images/User1.jpg" alt="MyImage" class="avatarprofile"> --}}
                 
                </centre></div>
 

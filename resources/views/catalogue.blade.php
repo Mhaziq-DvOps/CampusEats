@@ -41,59 +41,79 @@
                 <div id="category{{$P_Cat->P_Cat_Id}}" class="container tab-pane active">
                     <div class="row">
                         <div class="col-lg-7 col-md-12">
-                        @php
+
+
+                       @php
                         $catProduct = App\Models\Product::where('Cat_Id',$P_Cat->P_Cat_Id)->orderBy('Cat_Id','DESC')->get();
                         @endphp
-                        @foreach ($catProduct as $item) 
-                            <div class="item {{$item->P_Id==1?'active':''}}">
-                                <div class="menu-item">
-                                    <div class="menu-img">
-                                        <img src="{{asset('images/'. $item->P_Image)}}" alt="Image">
-                                    </div>
-                                    <div class="menu-text">
-                                        <h3><span><a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a></span> <strong>RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong></h3>
-                                        <br>
-                                        <p>{{$item->S_Description}}</p>
-                                        @if($item->P_Status == 1)
-                                            <label class="badge bg-success">In Stock</label>
-                                        @else
-                                            <label class="badge bg-danger">Out of Stock</label>
-                                        @endif
-                                    </div>
-                                    @if($item->P_Status == 1)
-                                        <div class="menu-cart">
-                                            <form action="/add_to_cart" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="Pro_Id" value="{{$item->P_Id}}">
-                                                <input type="hidden" id="otype" name="otype" value="{{$order}}">
-                                                <input type="hidden" id="bookdate" name="bookdate" value="{{$bookdate}}">
-                                                <input type="hidden" id="booktime" name="booktime" value="{{$booktime}}">
-                                                <input type="hidden" id="booktable" name="booktable" value="{{$booktable}}"> 
-                                                <button class="button-cart addToCartBtn"><i class="fa fa-shopping-cart"></i></button>
-                                        </div>
-                                    @else
-                                        <div class="menu-cart">
-                                            <input type="hidden" name="Pro_Id" value="{{$item->P_Id}}">
-                                            <button disabled class="button-cart addToCartBtn"><i class="fa fa-shopping-cart"></i></button>
-                                        </div>
-                                    @endif
-                                    <div class="col-lg-2">
-                                        <input type="hidden" value="{{$item->P_Id}}" class="Pro_Id">
-                                        <div class="quantity input-group">
-                                            <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="quantity">
-                                            <input type="number" step="1" max="10" value="1"  name="Pro_qty" class="quantity-field border-0 text-center w-80" style="width:100px">
-                                            <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm changeQuantity" data-field="quantity">
-                                        </div>
+                        
+                   
 
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                        </div>
-                        <div class="col-lg-5 d-none d-lg-block">
+
+                        @foreach ($catProduct as $item)
+<div class="item {{$item->P_Id==1 ? 'active' : ''}}">
+    <div class="menu-item d-flex flex-wrap">
+        <div class="menu-img me-3 mb-3">
+            <img src="{{ asset('images/' . $item->P_Image) }}" alt="Image" style="max-width: 150px; border-radius: 10px;">
+        </div>
+        <div class="menu-text flex-grow-1">
+            <h3 class="d-flex justify-content-between align-items-center">
+                <a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a>
+                <strong class="text-primary">RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong>
+            </h3>
+
+            <!-- Status label -->
+            <div class="mb-2">
+                @if($item->P_Status == 1)
+                    <span class="badge bg-success">Available</span>
+                @else
+                    <span class="badge bg-danger">Unavailable</span>
+                @endif
+            </div>
+
+            <!-- Description -->
+            <p class="text-muted" style="min-height: 40px;">{{$item->S_Description}}</p>
+<br>
+
+            <!-- Form + Quantity + Cart -->
+            <form action="/add_to_cart" method="POST" class="d-flex align-items-center flex-wrap justify-content-end w-100">
+                @csrf
+                <input type="hidden" name="Pro_Id" value="{{ $item->P_Id }}">
+                <input type="hidden" name="otype" value="{{ $order }}">
+                <input type="hidden" name="bookdate" value="{{ $bookdate }}">
+                <input type="hidden" name="booktime" value="{{ $booktime }}">
+                <input type="hidden" name="booktable" value="{{ $booktable }}">
+                
+                   {{-- <div class="quantity input-group me-3 mb-2 ms-auto"> --}}
+                        <div class="quantity input-group mb-2"> <!-- Removed me-3, added pe-3 -->
+    
+                    <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
+                    <input type="number" step="1" max="10" value="1" name="Pro_qty" class="quantity-field border-0 text-center w-80" style="width: 80px;">
+                    <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
+                </div>
+
+                @if($item->P_Status == 1)
+                    <button class="button-cart addToCartBtn btn btn-sm btn-outline-primary mb-2">
+                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                    </button>
+                @else
+                    <button disabled class="button-cart btn btn-sm btn-secondary mb-2">
+                        <i class="fa fa-shopping-cart"></i> Unavailable
+                    </button>
+                @endif
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
+                    </div>
+
+
+
+                        {{-- Update New photo 10 May 2025 --}}
+                        {{-- <div class="col-lg-5 d-none d-lg-block">
                             <img src="asset/img/menu-friedrice-big.png" alt="Image">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             @endforeach
@@ -140,31 +160,32 @@
 
 @endsection
 
-@section('scripts')
+
+  @section('scripts')
 <script>
 function incrementValue(e) {
-        e.preventDefault();
-        var fieldName = $(e.target).data('field');
-        var parent = $(e.target).closest('div');
-        var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+    e.preventDefault();
+    var parent = $(e.target).closest('.quantity');
+    var input = parent.find('input[name="Pro_qty"]');
+    var currentVal = parseInt(input.val(), 10);
 
-        if (!isNaN(currentVal) && currentVal< 10) {
-            parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
-        } else {
-            parent.find('input[name=' + fieldName + ']').val(1);
-        }
+    if (!isNaN(currentVal) && currentVal < 10) {
+        input.val(currentVal + 1);
+    } else {
+        input.val(1);
     }
+}
 
 function decrementValue(e) {
     e.preventDefault();
-    var fieldName = $(e.target).data('field');
-    var parent = $(e.target).closest('div');
-    var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+    var parent = $(e.target).closest('.quantity');
+    var input = parent.find('input[name="Pro_qty"]');
+    var currentVal = parseInt(input.val(), 10);
 
     if (!isNaN(currentVal) && currentVal > 1) {
-        parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+        input.val(currentVal - 1);
     } else {
-        parent.find('input[name=' + fieldName + ']').val(1);
+        input.val(1);
     }
 }
 
@@ -175,14 +196,5 @@ $('.input-group').on('click', '.button-plus', function(e) {
 $('.input-group').on('click', '.button-minus', function(e) {
     decrementValue(e);
 });
-
-$('.changeQuantity').click(function (e){
-    e.preventDefault();
-    
-});
-
 </script>
-@endsection
-
-
-
+@endsection 

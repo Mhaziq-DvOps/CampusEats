@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use MonkeyLearn\Client;
+use MonkeyLearn\MonkeyLearn;
 
 // require_once('../vendor/autoload.php');
 // require_once('../config.php');
