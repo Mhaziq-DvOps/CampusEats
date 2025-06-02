@@ -205,7 +205,7 @@
                                                         </tr>
                                                     </thead>
                                                     @php
-                                                        $Completed = App\Models\Order::where('O_Status', 4)->get();
+                                            $Completed = App\Models\Order::whereIn('O_Status', [4, 5])->get();
                                                     @endphp
                                                     @foreach ($Completed as $completed)
                                                         <tbody>
@@ -229,7 +229,15 @@
                                                             <td>RM
                                                                 {{ number_format((float) $completed->O_Total_Price, 2, '.', '') }}
                                                             </td>
-                                                            <td>{{$completed->Remarks}}</td>
+                                                            <td>
+                                                                @if($completed->O_Status == 4)
+                                                                    <span class="badge badge-warning">Ready for Pickup</span>
+                                                                @elseif($completed->O_Status == 5)
+                                                                    <span class="badge badge-success">Picked Up</span>
+                                                                @else
+                                                                    <span class="badge badge-secondary">Other</span>
+                                                                @endif
+                                                            </td>
                                                             <td><button type="button" class="btn btn-success"
                                                                     data-toggle="modal"
                                                                     data-target="#editModal{{ $completed->id }}">

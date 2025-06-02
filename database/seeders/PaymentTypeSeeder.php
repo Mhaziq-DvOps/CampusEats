@@ -20,14 +20,14 @@ class PaymentTypeSeeder extends Seeder
             'Image' => 'cash.png',
             ],
 
-            [
-            'PM_Id' => '2',
-            'Name' => 'PayPal',
-            'Image' => 'paypal.png',
-            ],
+            // [
+            // 'PM_Id' => '2',
+            // 'Name' => 'PayPal',
+            // 'Image' => 'paypal.png',
+            // ],
 
             [
-            'PM_Id' => '3',
+            'PM_Id' => '2',
             'Name' => 'Stripe',
             'Image' => 'Stripe.png',
             ],

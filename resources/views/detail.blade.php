@@ -83,12 +83,12 @@
 
                 <div class="single-tags">
                     <a href="">Farah Food Hub</a>
-                    <a href="">Burger</a>
+                    <a href="">CampusEats</a>
                     <a href="">Food</a>
-                    <a href="">Delivery</a>
+                    {{-- <a href="">Delivery</a>
                     <a href="">Dine In</a>
                     <a href="">Take Away</a>
-                    <a href="">Booking</a>
+                    <a href="">Booking</a> --}}
                 </div>
 
 
@@ -100,22 +100,33 @@
                        @foreach ($review as $reviews)
                             
                                     <div class="comment-body">
-                                        <div class="comment-img">
+                                        {{-- <div class="comment-img">
                                             <img src="asset/img/user3.png" />
-                                        </div>
+                                        </div> --}}
                                         <div class="comment-text">
                                       
                                             <h3>{{ $reviews->userReview->name}}</h3>
                                         <table >
                                         
-                                        <tr style="padding:5px; font-size:12px;">
+                                        {{-- <tr style="padding:5px; font-size:12px;">
                                             <td><span class="fa fa-star checked"></span></td>
                                             <td><span class="fa fa-star checked"></span></td>
                                             <td><span class="fa fa-star checked"></span></td>
                                             <td><span class="fa fa-star"></span></td>
                                             <td><span class="fa fa-star"></span></td>
                                             </tr>
-                                     
+                                      --}}
+                                        @foreach ($review as $reviews)
+                           
+                                      <tr style="padding:5px; font-size:12px;">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <td>
+                                                <span class="fa fa-star {{ $reviews->R_Rating >= $i ? 'checked' : '' }}"></span>
+                                            </td>
+                                        @endfor
+                                    </tr>
+                                       <!-- Show review data -->
+                                        @endforeach
                                         </table>
                                          
                                             <p><span>

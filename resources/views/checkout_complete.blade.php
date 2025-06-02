@@ -1,106 +1,94 @@
-{{-- @extends('master')
-@section('content')
-
-<!-- Shipping Address Start -->
-<div class="checkout">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Checkout Item</h2>
-        </div>
-        @if(\Session::has('error'))
-        <div class="alert alert-danger">{{ \Session::get('error') }}</div>
-        {{ \Session::forget('error') }}
-        @endif
-        @if(\Session::has('success'))
-            <div class="alert alert-success">{{ \Session::get('success') }}</div>
-            {{ \Session::forget('success') }}
-        @endif
-        <div class="process-checkout">
-            <ul class="progressbar">
-                <li class="active">Login</li>
-                <li class="active">Shipping and Billing</li>
-                <li class="active">Checkout Complete</li>
-                <li class="active">Order Status</li>
-            </ul>
-        </div>
-
-        {{-- <ol class="progtrckr" data-progtrckr-steps="5">
-            <li class="progtrckr-done">Order Recieve</li><!--
-            --><li class="progtrckr-todo">Preparing</li><!--
-            --><li class="progtrckr-todo">Ready</li><!--
-            --><li class="progtrckr-todo">Complete</li><!--
-            --><li class="progtrckr-todo">Delivered</li>
-        </ol> --}}
-
-        {{-- //Update the order status to "Complete" in the database on 8 april 2025- --}}
-        {{-- @php
-    $statuses = ['Order Recieve', 'Preparing', 'Ready', 'Complete', 'Delivered'];
-    $currentStatus = $order->O_Status ?? 'Order Recieve'; // fallback kalau null
-    $currentIndex = array_search($currentStatus, $statuses);
-    @endphp
-
-    <ol class="progtrckr" data-progtrckr-steps="5">
-    @foreach ($statuses as $index => $status)
-        <li class="{{ $index <= $currentIndex ? 'progtrckr-done' : 'progtrckr-todo' }}">{{ $status }}</li>
-    @endforeach
-    </ol>
-
-    </div>
-</div> --}}
-
-{{-- @endsection --}} 
-
-
 @extends('master')
 @section('content')
 
-<!-- Shipping Address Start -->
-<div class="checkout">
-    <div class="container">
-        <div class="section-header text-center">
-            <h2>Checkout Item</h2>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>Checkout Complete</h3>
         </div>
-        @if(\Session::has('error'))
-        <div class="alert alert-danger">{{ \Session::get('error') }}</div>
-        {{ \Session::forget('error') }}
-        @endif
-        @if(\Session::has('success'))
-            <div class="alert alert-success">{{ \Session::get('success') }}</div>
-            {{ \Session::forget('success') }}
-        @endif
-        <div class="process-checkout">
-            <ul class="progressbar">
-                <li class="active">Login</li>
-                <li class="active">Shipping and Billing</li>
-                <li class="active">Checkout Complete</li>
-                <li class="active">Order Status</li>
-            </ul>
+        <div class="card-body">
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @elseif(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
+            <p><strong>Order ID:</strong> {{ $order->id }}</p>
+            <p><strong>Status:</strong>
+                @if($order->O_Status == 5)
+                    <span class="badge bg-success">Picked Up</span>
+                @elseif($order->O_Status == 4)
+                    <span class="badge bg-warning">Ready for Pickup</span>
+                 @elseif($order->O_Status == 3)
+                    <span class="badge bg-warning">Ready</span>
+               
+                   @elseif($order->O_Status == 2)
+                    <span class="badge bg-warning">Preparing</span>
+
+                   @elseif($order->O_Status == 1)
+                    <span class="badge bg-warning">Order Receive</span>
+                    @elseif($order->O_Status == 0)
+                    <span class="badge bg-warning">Order Cancelled</span>
+                @else
+                    <span class="badge bg-secondary">Status {{ $order->O_Status }}</span>
+                @endif
+            </p>
+
+            <h4 class="mt-4">Order Items</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Qty</th>
+                        <th>Product</th>
+                        <th>Subtotal (RM)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @php $totalPrice = 0; @endphp
+                    @foreach($order->orderItems as $item)
+                                     @php
+                                        $product = $item->products;
+                                        $originalPrice = $product->P_Price;
+                                        $hasPromotion = $product->promotion_id && $product->P_Disc_Price;
+                                        $finalPrice = $hasPromotion ? $product->P_Disc_Price : $originalPrice;
+                                        $lineTotal = $finalPrice * $item->Order_Quantity;
+                                        $totalPrice += $lineTotal;
+                                    @endphp
+                        <tr>
+                            <td>{{ $item->Order_Quantity }}</td>
+                            <td>{{ $item->products->P_Name }}</td>
+                            <td>{{ number_format($lineTotal, 2) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+        <h5>Total: RM {{ number_format($totalPrice, 2) }}</h5>
+             @if ($order->O_Status == 1)
+            <form action="{{ route('order.cancel', ['id' => $order->id]) }}" method="POST" onsubmit="return confirm('Adakah anda pasti ingin batalkan order ini?');">
+                @csrf
+                <button type="submit" class="btn btn-danger mt-3">Cancel Order</button>
+            </form>
+            @elseif($order->O_Status == 4)
+                <form action="{{ route('order.pickedup', ['id' => $order->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary mt-3">Mark as Picked Up</button>
+                </form>
+            @endif
+           
+            <a href="{{ url('/') }}" class="btn btn-secondary mt-4">Back to Home</a>
         </div>
-
-        {{-- <ol class="progtrckr" data-progtrckr-steps="5">
-            <li class="progtrckr-done">Order Recieve</li><!--
-            --><li class="progtrckr-todo">Preparing</li><!--
-            --><li class="progtrckr-todo">Ready</li><!--
-            --><li class="progtrckr-todo">Complete</li><!--
-            --><li class="progtrckr-todo">Delivered</li>
-        </ol> --}}
-
-        @php
-        $statuses = ['Order Recieve', 'Preparing', 'Ready', 'Complete', 'Delivered'];
-        $currentStatus = $order->O_Status ?? 'Order Recieve';
-        $currentIndex = array_search($currentStatus, $statuses);
-        @endphp
-
-        <ol class="progtrckr" data-progtrckr-steps="5">
-        @foreach ($statuses as $index => $status)
-            <li class="{{ $index <= $currentIndex ? 'progtrckr-done' : 'progtrckr-todo' }}">
-                {{ $status }}
-            </li>
-        @endforeach
-    </ol>
-
-
     </div>
 </div>
+
+
+<script>
+    // Auto-reload the page every 2 minutes (120000 milliseconds)
+    //60000 milliseconds = 1 minute
+    setInterval(function () {
+        location.reload();
+    }, 60000); // 1 minutes
+</script>
+
 
 @endsection

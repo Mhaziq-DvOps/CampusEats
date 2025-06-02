@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Product_Category;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-
 use Whoops\Run;
+use App\Models\Product;
+use App\Models\Promotion;
+use Illuminate\Http\Request;
+use App\Models\Product_Category;
+use Illuminate\Support\Facades\DB;
+
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\File;
 
 class CatalogueController extends Controller
 {
@@ -51,18 +52,34 @@ class CatalogueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-        $product_category = Product_Category::all();
-        return view('layouts.createProduct', ['product_category' => $product_category]);
-    }
+
+     //Edit on 20 may 2025
+    // public function create()
+    // {
+    //     //
+    //     $product_category = Product_Category::all();
+    //     return view('layouts.createProduct', ['product_category' => $product_category]);
+    // }
     // public function add()
     // {
     //     //
     //     $product_category = Product_Category::all();
     //     return view('layouts.createProduct', ['product_category' => $product_category]);
     // }
+
+    public function create()
+    {
+        $product_category = Product_Category::all();
+        $promotion = Promotion::where('Promo_Status', 'Active')
+            ->whereDate('Promo_Start', '<=', now())
+            ->whereDate('Promo_End', '>=', now())
+            ->get();
+
+        return view('layouts.createProduct', [
+            'product_category' => $product_category,
+            'promotion' => $promotion,
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -95,6 +112,8 @@ class CatalogueController extends Controller
         $product->P_Status = $request->input('P_Status');
         // Add features
         $product->features = $request->input('features');
+        //add promotion
+        $product->promotion_id = $request->input('promotion_id');
 
 
  
@@ -162,17 +181,36 @@ class CatalogueController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($catalogue)
-    {
-        //
-        $product = Product::find($catalogue);
-        // dd($product->category());
-        // $product=DB::table('product')->where('P_Id',$catalogue)->first();
-        $categories = DB::table('product_category')->get();
+    // public function edit($catalogue)
+    // {
+    //     //
+    //     $product = Product::find($catalogue);
+    //     // dd($product->category());
+    //     // $product=DB::table('product')->where('P_Id',$catalogue)->first();
+    //     $categories = DB::table('product_category')->get();
 
 
-        return view('layouts.editProduct')->with('product', $product)->with('categories', $categories);
-    }
+    //     return view('layouts.editProduct')->with('product', $product)->with('categories', $categories);
+    // }
+            public function edit($catalogue)
+            {
+                $product = Product::find($catalogue);
+                $categories = DB::table('product_category')->get();
+                $promotion = Promotion::all(); // Ensure this exists and has data
+
+                // $promotion = Promotion::where('Promo_Status', 'Active')
+                //     ->whereDate('Promo_Start', '<=', now())
+                //     ->whereDate('Promo_End', '>=', now())
+                //     ->get();
+
+                // return view('layouts.editProduct', [
+                //     'product' => $product,
+                //     'categories' => $categories,
+                //     'promotion' => $promotion
+                // ]);
+                    return view('layouts.editProduct', compact('product', 'categories', 'promotion'));
+
+            }
 
     /**
      * Update the specified resource in storage.
@@ -208,6 +246,9 @@ class CatalogueController extends Controller
         $product->P_Status = $request->input('P_Status');
         // Add features
         $product->features = $request->input('features');
+
+        //add promotion
+        $product->promotion_id = $request->input('promotion_id');
 
         $product->update();
 

@@ -1,3 +1,9 @@
+@if(!isset($order))
+    <p style="color:red;">Error: Order variable is missing.</p>
+@else
+    <p>Order ID: {{ $order->id }}</p>
+@endif
+
 @extends('master')
 @section('content')
 
@@ -27,7 +33,9 @@
                 <p>Tracking No:{{$order->Tracking_No}}</p>
                 <p>Total Paid: RM {{$order->O_Total_Price}}</p>
             </div> --}}
-            <a href="/checkout_complete" class="btn btn-warning">Go to Order Status</a>
+            {{-- <a href="/checkout_complete" class="btn btn-warning">Go to Order Status</a> --}}
+            <a href="{{ route('checkout_complete', ['orderId' => $order->id]) }}" class="btn btn-warning">Go to Order Status</a>
+
         </div>
     </div>
 </div>

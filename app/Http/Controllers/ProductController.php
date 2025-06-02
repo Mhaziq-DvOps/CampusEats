@@ -14,13 +14,16 @@ use Carbon\Carbon;
 
 class ProductController extends Controller
 {
+    
     function index(Request $req)
     {
 
 
 
         $booking = DB::table('customer_order')->get();
-        $products = DB::table('product')->get();
+        // $products = DB::table('product')->get();
+        $products = Product::with('promotion')->get();
+
         $category = DB::table('product_category')->get();
         $cart = DB::table('cart')->get();
         $order = $req->otype;
@@ -104,16 +107,26 @@ class ProductController extends Controller
     }
     function search(Request $req)
     {
+         $query = $req->input('query'); // ✅ define $query
+
         $data = Product::where('P_Name', 'like', '%' . $req->input('query') . '%')->get();
-        return view('search', ['product' => $data]);
+         $promotedProducts = Product::whereNotNull('P_Disc_Price')
+        ->whereColumn('P_Disc_Price', '<', 'P_Price')
+        ->where('P_Name', 'like', '%' . $query . '%')
+        ->get();
+        return view('search', ['product' => $data], compact('promotedProducts','query'));
     }
 
 
 public function popularProducts()
 {
+    //model Product , select column product . (merujuk) SUM( hasil tambah order_quantity dari table Order_product ( dalam table order_product ada order_quantity) ), kemudian kita namakan column tersebut sebagai total_ordered.
     $popularProducts = Product::select('product.*', DB::raw('SUM(order_product.Order_Quantity) as total_ordered'))
+    //JOIN table order_product table yang mana Product Id match dengan P_Id di order_product
         ->join('order_product', 'product.P_Id', '=', 'order_product.P_Id')
+        //group the product by each product id, jadi ia akan dikira berdasarkan setiap produk id
         ->groupBy('product.P_Id')
+        //susunan secara menurun dari jmlah paling byk dibeli ke paling sedikit
         ->orderByDesc('total_ordered')
         ->take(6) // ambil top 6
         ->get();
@@ -121,4 +134,6 @@ public function popularProducts()
     return view('home', compact('popularProducts'));
 }
 
+
 }
+

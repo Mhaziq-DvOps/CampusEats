@@ -13,4 +13,6 @@ class Customer extends Model
         'id', 'name', 'phone', 'password', 'gender', 'birthDate', 'email', 'street_1', 'postcode', 'city', 'state', 'ban', 'reason'
     ];
     public $timestamps = false;
+
+
 }

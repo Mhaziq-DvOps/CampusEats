@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+
+
     public function dashboard() {
         
         // Total Orders
@@ -16,7 +18,7 @@ class DashboardController extends Controller
         $pendingOrder = DB::table('customer_order')->whereIn('O_Status', [1, 2])->count();
         
         // Completed Orders
-        $completeOrder = DB::table('customer_order')->where('O_Status', 3)->count();
+        $completeOrder = DB::table('customer_order')->where('O_Status', 5)->count();
         
         // Total Sales
         $totalSales = DB::table('customer_order')->sum('O_Total_Price');

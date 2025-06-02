@@ -80,7 +80,9 @@
                                 <div class="seo-fact sbg1">
                                     <div class="p-4 d-flex justify-content-between align-items-center">
                                         <div class="seofct-icon">Total User</div>
-                                        <h2>24</h2>
+                                        <!-- <h2>24</h2> -->
+                                         <h2>{{ $total }}</h2>
+
                                     </div>
                                 </div>
                             </div>

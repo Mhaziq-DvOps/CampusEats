@@ -9,27 +9,27 @@ class OrderTrendsController extends Controller
 {
     public static function analytics() {
         
-        $payment = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Paypal' then 1 end) as Paypal FROM customer_order;");
+        $payment = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Stripe' then 1 end) as Stripe FROM customer_order;");
         foreach($payment as $row){
-            $orderPayment = "[".$row->Cash.", ".$row->Paypal."]";
+            $orderPayment = "[".$row->Cash.", ".$row->Stripe."]";
         }
 
-        $paymentWeek = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Paypal' then 1 end) as Paypal FROM customer_order 
+        $paymentWeek = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Stripe' then 1 end) as Stripe FROM customer_order 
         where created_at between date_sub(now(),INTERVAL 1 WEEK) and now();");
         foreach ($paymentWeek as $row) {
-            $filterpaymentWeek = "[" . $row->Cash . ", " .$row->Paypal. "]";
+            $filterpaymentWeek = "[" . $row->Cash . ", " .$row->Stripe. "]";
         }
 
-        $paymentMonth = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Paypal' then 1 end) as Paypal FROM customer_order 
+        $paymentMonth = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Stripe' then 1 end) as Stripe FROM customer_order 
         where created_at between date_sub(now(),INTERVAL 2 MONTH) and now();");
         foreach ($paymentMonth as $row) {
-            $filterpaymentMonth = "[" . $row->Cash . ", " .$row->Paypal."]";
+            $filterpaymentMonth = "[" . $row->Cash . ", " .$row->Stripe."]";
         }
 
-        $paymentYear = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Paypal' then 1 end) as Paypal FROM customer_order 
+        $paymentYear = DB::select("Select count(CASE WHEN O_Payment = 'Cash' then 1 end) as Cash, count(CASE WHEN O_Payment = 'Stripe' then 1 end) as Stripe FROM customer_order 
         where created_at between date_sub(now(),INTERVAL 1 Year) and now();");
         foreach ($paymentYear as $row) {
-            $filterpaymentYear = "[" . $row->Cash . ", " . $row->Paypal. "]";
+            $filterpaymentYear = "[" . $row->Cash . ", " . $row->Stripe. "]";
         }
 
         $service = DB::select("Select count(CASE WHEN O_Type = 'dineIn' then 1 end) as DineIn, count(CASE WHEN O_Type = 'delivery' then 1 end) as Delivery, count(CASE WHEN O_Type = 'pickUp' then 1 end) as PickUp, count(CASE WHEN O_Type = 'booking' then 1 end) as Booking

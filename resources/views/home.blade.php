@@ -28,75 +28,129 @@
     <link href="css/style.css" rel="stylesheet">
 </head> 
         
-        <div class="welcome-header text-center">
+        {{-- <div class="welcome-header text-center">
             <h1>WELCOME TO CampusEats</h1>
 
         <p class="lead">Hassle-free to Eat at Campus</p>
 
+        </div> --}}
+        {{-- <div class="py-5 text-center bg-light border-bottom shadow-sm">
+    <h1 class="display-4 fw-bold text-warning">Welcome to <span class="text-warning">CampusEats</span></h1>
+    <p class="lead text-muted">Hassle-free way to eat at campus. Discover promotions, top picks, and more!</p>
+</div> --}}
+    <div class="py-5 text-center bg-light border-bottom shadow-sm">
+        <h1 class="display-3 fw-bold mb-3">Welcome to <span class="text-warning">CampusEats</span></h1>
+        <p class="lead mb-4">Your hassle-free solution for delicious campus dining</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/catalogue" class="btn btn-light btn-lg px-4">Order Now</a>
+            <a href="#features" class="btn btn-light btn-lg px-4">Learn More</a>
         </div>
+    </div>
+
+
         
+          <!-- Top Promoted Start -->
 
-<!-- Carousel Start -->
-<div class="slideshow-container">
-
-    <div class="mySlides fade" style="display:none; text-align:center;">
-    {{-- <img src="asset/img/carousel-4.jpg" style="=height: 100rem; width: 50rem !important;"> --}}
-        <img src="Banner/1.png" style="=height: 100rem; width: 70rem !important;">
-
-    </div>
-        <div class="mySlides fade" style="display:none; text-align:center;">
-        <img src="Banner/2.png" style="=height: 100rem; width: 70rem !important;">
-    </div>
-
-    </div>
-        <div class="mySlides fade" style="display:none; text-align:center;">
-        <img src="Banner/3.png" style="=height: 100rem; width: 70rem !important;">
-    </div>
-
-      </div>
-        <div class="mySlides fade" style="display:none; text-align:center;">
-        <img src="Banner/4.png" style="=height: 100rem; width: 70rem !important;">
-    </div>
-
-     </div>
-        <div class="mySlides fade" style="display:none; text-align:center;">
-        <img src="Banner/5.png" style="=height: 100rem; width: 70rem !important;">
-    </div>
-
-
-      </div>
-        <div class="mySlides fade" style="display:none; text-align:center;">
-        <img src="Banner/6.png" style="=height: 100rem; width: 70rem !important;">
-    </div>
-
-     </div>
-        <div class="mySlides fade" style="display:none; text-align:center;">
-        <img src="Banner/7.png" style="=height: 100rem; width: 70rem !important;">
-    </div>
-
-    </div>
-        <div class="mySlides fade" style="display:none; text-align:center;">
-        <img src="Banner/8.png" style="=height: 100rem; width: 70rem !important;">
-    </div>
- <!-- Next and previous buttons -->
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-
-</div>
+<section class="py-5 bg-white bg-opacity-10">
+    <div class="container">
+        <div class="text-center mb-5">
+            {{-- <h2 class="fw-bold text-warning">Pomotions</h2> --}}
+            <section class="position-relative">
+        <span class="badge bg-danger position-absolute top-0 start-0 m-3 fs-6 fw-bold" style="animation: pulse 1.5s infinite;">
+            🔥 Now On Promotion!
+        </span>
 <br>
+<br>
+           <h2 class="fw-bold text-primary">Pomotions</h2> 
 
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-  <span class="dot" onclick="currentSlide(3)"></span> 
-    <span class="dot" onclick="currentSlide(4)"></span> 
-  <span class="dot" onclick="currentSlide(5)"></span> 
-    <span class="dot" onclick="currentSlide(6)"></span> 
-  <span class="dot" onclick="currentSlide(7)"></span> 
-    <span class="dot" onclick="currentSlide(8)"></span>
-</div>
-<!-- Carousel End -->
+        <p class="lead mb-4">Items currently on promotioning</p>
+            {{-- <p class="text-muted">Exclusive items currently on promotion</p> --}}
+        {{-- </div> --}}
+
+        @if($promotedProducts && count($promotedProducts) > 0)
+        <div class="row g-4">
+            @foreach ($promotedProducts as $product)
+            <div class="col-lg-3 col-md-6">
+                {{-- <div class="card h-100 border-0 shadow"> --}}
+                    <div class="card h-100 border-0 shadow-sm rounded-4">
+                    <img src="{{ asset('images/' . $product->P_Image) }}" 
+                         class="card-img-top" 
+                         alt="{{ $product->P_Name }}" 
+                         style="height: 200px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">{{ $product->P_Name }}</h5>
+                        <p class="card-text">{{ Str::limit($product->S_Description, 70) }}</p>
+                        <p class="mb-1 text-decoration-line-through text-muted">RM{{ number_format($product->P_Price, 2) }}</p>
+                        <h5 class="text-success">Now on Promotion! Only RM{{ number_format($product->P_Disc_Price, 2) }}</h5>
+                        <a href="{{ url('catalogue', $product->P_Id) }}" class="btn btn-danger btn-sm mt-2">Get Deal</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @else
+            <div class="text-center">No promotions available now.</div>
+        @endif
+    </div>
+</section>
+<style>
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+</style>
+  <!-- Top Rated -->
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            {{-- <h2 class="fw-bold text-success">Top Rated Foods</h2> --}}
+            <h2 class=" fw-bold text-primary">Top Rated Foods</h2>
+
+           
+            <p class="lead mb-4">Highly rated by students</p>
+        </div>
+
+        @if($topRatedProducts && count($topRatedProducts) > 0)
+        <div class="row g-4">
+            @foreach ($topRatedProducts as $product)
+            <div class="col-lg-3 col-md-6">
+                <div class="card h-100 border-0 shadow">
+                    <img src="{{ asset('images/' . $product->P_Image) }}" 
+                         class="card-img-top" 
+                         alt="{{ $product->P_Id }}" 
+                         style="height: 200px;">
+                    <div class="card-body">
+                               <h5 class="card-title">{{ $product->P_Name ?? 'Product' }}</h5>
+                        <p class="card-text">{{ Str::limit($product->R_Comment, 70) }}</p>
+                        <div class="mb-2">
+                            <span class="text-warning fs-6">
+                                @for($i = 0; $i < round($product->avg_rating); $i++) ★ @endfor
+                            </span>
+                        </div>
+                        {{-- <h5 class="card-title">{{ $product->P_Id }}</h5>
+                        <p class="card-text">{{ Str::limit($product->R_Comment, 70) }}</p> --}}
+                        {{-- <div class="mb-2">
+                            <span class="text-warning">
+                                @for($i = 0; $i < 5; $i++) ★ @endfor
+                            </span>
+                        </div> --}}
+                   
+                        <h5 class="text-primary">RM{{ number_format($product->P_Price, 2) }}</h5>
+                        <a href="{{ url('catalogue', $product->P_Id) }}" class="btn btn-primary btn-sm">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+ 
+
+        @else
+            <div class="text-center">No top-rated items found.</div>
+        @endif
+    </div>
+</section>
 
 
         <!-- About Start -->
@@ -165,12 +219,12 @@
 
 {{-- ------------------------------------------------------- --}}
                     
-                        <div class="about-img">
+                        {{-- <div class="about-img"> --}}
                             {{-- <img src="asset/img/CampusEatsLogo.png" alt="Image"> --}}
-                            <img src="asset/img/CampusEatsLogo.png" alt="Image" width="70" height="auto">
+                            {{-- <img src="asset/img/CampusEatsLogo.png" alt="Image" width="70" height="auto">
 
-                        </div>
-                    <div class="col-lg-6">
+                        </div> --}}
+                    {{-- <div class="col-lg-6">
                         <div class="about-content">
                             <div class="section-header">
                                 <strong>About Us</strong>
@@ -188,7 +242,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -197,78 +251,13 @@
 
 
 
-        <!-- Most Ordered Food -->
-
-<!-- POPULAR DISHES -->
-{{-- <section id="popular" style="background-color: white; padding: 2.5rem 0;">
-    <div style="max-width: 56rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; text-align: center;">
-        <h2 style="font-size: 1.25rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; text-align: center;">Popular Menu</h2>
-
-        @if($popularProducts ?? [] && count($popularProducts) > 0)
-            <div style="display: flex; justify-content: center;">
-                <div style="overflow-x: auto; width: 100%; max-width: 56rem;">
-                    <table style="min-width: 100%; background-color: white; border: 1px solid #e5e7eb; margin: 0 auto;">
-                        <thead style="background-color: #f9fafb;">
-                            <tr>
-                                <th style="padding: 0.5rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 500; color: #6b7280; letter-spacing: 0.05em; text-transform: uppercase;">Image</th>
-                                <th style="padding: 0.5rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 500; color: #6b7280; letter-spacing: 0.05em; text-transform: uppercase;">Product</th>
-                                <th style="padding: 0.5rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 500; color: #6b7280; letter-spacing: 0.05em; text-transform: uppercase;">Description</th>
-                                <th style="padding: 0.5rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 500; color: #6b7280; letter-spacing: 0.05em; text-transform: uppercase;">Status</th>
-                                <th style="padding: 0.5rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 500; color: #6b7280; letter-spacing: 0.05em; text-transform: uppercase;">Price</th>
-                                <th style="padding: 0.5rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 500; color: #6b7280; letter-spacing: 0.05em; text-transform: uppercase;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody style="divide-y: 1px solid #e5e7eb;">
-                            @foreach ($popularProducts as $product)
-                            <tr style="hover:background-color: #f9fafb;">
-                                <td style="padding: 0.75rem 1rem; white-space: nowrap; text-align: center;">
-                                    <div style="display: flex; justify-content: center;">
-                                        <img src="{{ asset('images/' . $product->P_Image) }}" 
-                                             alt="{{ $product->P_Name }}" 
-                                             style="height: 15rem; width: 15rem; object-fit: cover;">
-                                    </div>
-                                </td>
-                                <td style="padding: 0.75rem 1rem; white-space: nowrap;">
-                                    <div style="font-size: 0.875rem; font-weight: 500; color: #111827;">{{ $product->P_Name }}</div>
-                                </td>
-                                <td style="padding: 0.75rem 1rem;">
-                                    <div style="font-size: 0.875rem; color: #6b7280;">{{ $product->S_Description }}</div>
-                                </td>
-                                <td style="padding: 0.75rem 1rem; white-space: nowrap; text-align: center;">
-                                    @if($product->P_Status == 1)
-                                        <span style="padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; border-radius: 9999px; background-color: #dcfce7; color: #166534;">In Stock</span>
-                                    @else
-                                        <span style="padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; border-radius: 9999px; background-color: #fee2e2; color: #991b1b;">Out of Stock</span>
-                                    @endif
-                                </td>
-                                <td style="padding: 0.75rem 1rem; white-space: nowrap; text-align: center;">
-                                    <div style="font-size: 0.875rem; font-weight: 700; color: #1d4ed8;">RM{{ number_format($product->P_Price, 2) }}</div>
-                                </td>
-                                <td style="padding: 0.75rem 1rem; white-space: nowrap; text-align: center;">
-                                    @if($product->P_Status == 1)
-                                        <a href="{{ url('catalogue', $product->P_Id) }}" style="font-size: 0.75rem; background-color: #1d4ed8; color: white; padding: 0.25rem 0.75rem; border-radius: 0.25rem; hover:background-color: #1e40af; transition: background-color 0.2s;">Order</a>
-                                    @else
-                                        <span style="font-size: 0.75rem; background-color: #d1d5db; color: #4b5563; padding: 0.25rem 0.75rem; border-radius: 0.25rem; cursor: not-allowed;">Unavailable</span>
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        @else
-            <p style="text-align: center; color: #6b7280;">No popular products for now</p>
-        @endif
-    </div>
-</section> --}}
 
 <!-- Popular Menu Section -->
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="fw-bold text-primary">Popular Menu Items</h2>
-            <p class="text-muted ">Our most loved dishes by students</p>
+            <p class="lead mb-4">Our most ordered dishes by students</p>
         </div>
 
         @if($popularProducts && count($popularProducts) > 0)
@@ -317,191 +306,96 @@
 </section>
 
 
-        <!-- Feature Start -->
-        {{-- <div class="feature">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="section-header">
-                            <p>Why Choose Us</p>
-                            <h2>Our Key Features</h2>
-                        </div>
-                        <div class="feature-text">
-                            <div class="feature-img">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <img src="asset/img/feature-1.jpg" alt="Image">
-                                    </div>
-                                    <div class="col-6">
-                                        <img src="asset/img/feature-2.jpg" alt="Image">
-                                    </div>
-                                    <div class="col-6">
-                                        <img src="asset/img/feature-3.jpg" alt="Image">
-                                    </div>
-                                    <div class="col-6">
-                                        <img src="asset/img/feature-4.jpg" alt="Image">
-                                    </div>
-                                </div>
-                            </div>
-                            <p>
-                                CampusEats provide many key features which is the main services that is needed during ordering. 
-                            </p>
-                            <a class="btn custom-btn" href="">Let's find out more</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="feature-item">
-                                    <i class="flaticon-cooking"></i>
-                                    <h3>Avaiability</h3>
-                                    <p>
-                                        CampusEats transparent to the customer who want to use the system.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="feature-item">
-                                    <i class="flaticon-vegetable"></i>
-                                    <h3>Ordering services</h3>
-                                    <p>
-                                        CampusEats provide Ordering services.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="feature-item">
-                                    <i class="flaticon-medal"></i>
-                                    <h3>Best quality products</h3>
-                                    <p>
-                                        The product sold in CampusEats is guaranteed to be the best in quality.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="feature-item">
-                                    <i class="flaticon-meat"></i>
-                                    <h3>Freshly cooked Food </h3>
-                                    <p>
-                                        Order Fresh food in CampusEat. 
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="feature-item">
-                                    <i class="flaticon-courier"></i>
-                                    <h3>Varities of Payment Methods</h3>
-                                    <p>
-                                        Easy payment through COD or Online Payment.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="feature-item">
-                                    <i class="flaticon-fruits-and-vegetables"></i>
-                                    <h3>Friendly User Interface</h3>
-                                    <p>
-                                        It made easy for the customer to use the system.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
-
-        <!-- Features Section -->
 <!-- Features Section -->
-<section class="py-5 bg-white">
+<!-- Features Section -->
+<section id="features" class="py-5 bg-white">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold text-primary mb-3">Our Key Features</h2>
-            <p class="lead text-muted">What makes CampusEats the best choice for campus dining</p>
+            <h2 class="fw-bold text-primary position-relative d-inline-block">
+                <span class="bg-white px-3">Why Choose Us</span>
+                <span class="position-absolute top-50 start-0 end-0 border-top border-primary z-index--1"></span>
+            </h2>
+            <p class="lead text-muted mt-3">What makes CampusEats the best choice for campus dining</p>
         </div>
         
         <div class="row g-4">
-            <!-- Feature 1: Fast Service -->
             <div class="col-md-4">
-                <div class="feature-card p-4 rounded shadow-sm h-100 text-center border-0">
+                <div class="feature-card p-4 rounded-3 shadow-sm h-100 text-center border-0 bg-light">
                     <div class="mb-3">
-                        <i class="fas fa-stopwatch text-primary fs-1"></i>
+                        <i class="fas fa-stopwatch fa-3x text-primary"></i>
                     </div>
                     <h5 class="fw-bold mb-3">Fast Service</h5>
-                    <p class="text-muted">Fast service for food ordering.</p>
+                    <p class="text-muted">Get your food quickly with our efficient ordering.</p>
                 </div>
             </div>
             
-            <!-- Feature 2: Website Ordering -->
             <div class="col-md-4">
-                <div class="feature-card p-4 rounded shadow-sm h-100 text-center border-0">
+                <div class="feature-card p-4 rounded-3 shadow-sm h-100 text-center border-0 bg-light">
                     <div class="mb-3">
-            <i class="fas fa-laptop fs-1 text-primary"></i> <!-- Correct laptop icon -->
+                        <i class="fas fa-mobile-alt fa-3x text-primary"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Easy Website Ordering</h5>
-                    <p class="text-muted">Simple and user-friendly website lets you order easily.</p>
+                    <h5 class="fw-bold mb-3">Easy Ordering</h5>
+                    <p class="text-muted">Simple and intuitive interface for hassle-free ordering.</p>
                 </div>
             </div>
             
-            <!-- Feature 3: Fresh Meals -->
             <div class="col-md-4">
-                <div class="feature-card p-4 rounded shadow-sm h-100 text-center border-0">
+                <div class="feature-card p-4 rounded-3 shadow-sm h-100 text-center border-0 bg-light">
                     <div class="mb-3">
-                        <i class="fas fa-leaf text-primary fs-1"></i>
+                        <i class="fas fa-leaf fa-3x text-primary"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Freshly Prepared Meals</h5>
-                    <p class="text-muted">Locally-sourced ingredients prepared fresh foods.</p>
+                    <h5 class="fw-bold mb-3">Fresh Ingredients</h5>
+                    <p class="text-muted">Locally-sourced ingredients prepared fresh daily.</p>
                 </div>
             </div>
             
-            <!-- Feature 4: Payment Options -->
             <div class="col-md-4">
-                <div class="feature-card p-4 rounded shadow-sm h-100 text-center border-0">
+                <div class="feature-card p-4 rounded-3 shadow-sm h-100 text-center border-0 bg-light">
                     <div class="mb-3">
-                        <i class="fas fa-credit-card text-primary fs-1"></i>
+                        <i class="fas fa-credit-card fa-3x text-primary"></i>
                     </div>
                     <h5 class="fw-bold mb-3">Flexible Payment</h5>
-                    <p class="text-muted">Cash and card payment</p>
+                    <p class="text-muted">Multiple payment options including cash, and Stripe payments.</p>
                 </div>
             </div>
             
-            <!-- Feature 5: Order Tracking -->
             <div class="col-md-4">
-                <div class="feature-card p-4 rounded shadow-sm h-100 text-center border-0">
+                <div class="feature-card p-4 rounded-3 shadow-sm h-100 text-center border-0 bg-light">
                     <div class="mb-3">
-                        <i class="fas fa-map-marker-alt text-primary fs-1"></i>
+                        <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
                     </div>
                     <h5 class="fw-bold mb-3">Real-Time Tracking</h5>
-                    <p class="text-muted">Track your order from kitchen to delivery with live GPS updates.</p>
+                    <p class="text-muted">Track your order from kitchen in real-time.</p>
                 </div>
             </div>
             
-            <!-- Feature 6: Dietary Options -->
             <div class="col-md-4">
-                <div class="feature-card p-4 rounded shadow-sm h-100 text-center border-0">
+                <div class="feature-card p-4 rounded-3 shadow-sm h-100 text-center border-0 bg-light">
                     <div class="mb-3">
-                        <i class="fas fa-allergies text-primary fs-1"></i>
+                        <i class="fas fa-heart fa-3x text-primary"></i>
                     </div>
-                    <h5 class="fw-bold mb-3">Dietary Options</h5>
-                    <p class="text-muted">Filter by dietary needs: vegan, gluten-free, halal, kosher, nut-free and more.</p>
+                    <h5 class="fw-bold mb-3">Student Focused</h5>
+                    <p class="text-muted">Menu and pricing designed specifically for student needs.</p>
                 </div>
             </div>
-        </div>
-        
-        <div class="text-center mt-5">
-            <a href="/catalogue" class="btn btn-primary btn-lg px-4">
-                <i class="fas fa-list me-2"></i> Explore All Menus
-            </a>
         </div>
     </div>
 </section>
+<!-- Feature End -->
 
-        <!-- Feature End -->
+<!-- Call to Action -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Ready to Order Your Next Meal?</h2>
+        <p class="lead mb-4">Join our students enjoying hassle-free campus dining</p>
+        <div class="text-center mt-5">
+            <a href="/catalogue" class="btn btn-primary px-4 py-2">
+                <i class="fas fa-utensils me-2"></i> View Full Menu
+            </a>
+        </div>
+
+    </div>
+</section>
 
 
     <!-- JavaScript Libraries -->
@@ -522,98 +416,11 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     
-@endsection
-
-{{-- @section('scripts')
 <script>
-var slideIndex = 1;
-showSlides();
-
-function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" activer", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " activer";
-  setTimeout(showSlides, 8000); // Change image every 8 seconds
-}
-</script> 
- @endsection  --}}
-
-@section('scripts')
-<script>
-// Initialize slide index
-var slideIndex = 1;
-var slideInterval;
-
-// Start the slideshow
-startSlideshow();
-
-function startSlideshow() {
-    showSlides(slideIndex);
-    slideInterval = setInterval(() => {
-        plusSlides(1); // Advance to next slide
-    }, 8000); // 8 seconds interval
-}
-
-// Next/previous controls
-function plusSlides(n) {
-    clearInterval(slideInterval); // Reset timer when manually changing slides
-    showSlides(slideIndex += n);
-    slideInterval = setInterval(() => {
-        plusSlides(1);
-    }, 8000);
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-    clearInterval(slideInterval);
-    showSlides(slideIndex = n);
-    slideInterval = setInterval(() => {
-        plusSlides(1);
-    }, 8000);
-}
-
-function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("dot");
-    
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" activer", "");
-    }
-    
-    // Add fade animation
-    slides[slideIndex-1].style.opacity = 0;
-    slides[slideIndex-1].style.display = "block";
-    
-    // Smooth fade in effect
-    let opacity = 0;
-    const fadeIn = setInterval(() => {
-        if (opacity >= 1) {
-            clearInterval(fadeIn);
-        } else {
-            opacity += 0.1;
-            slides[slideIndex-1].style.opacity = opacity;
-        }
-    }, 50);
-    
-    dots[slideIndex-1].className += " activer";
-}
+    // Auto-reload the page every 2 minutes (120000 milliseconds)
+    //60000 milliseconds = 1 minute
+    setInterval(function () {
+        location.reload();
+    }, 60000); // 1 minutes
 </script>
 @endsection

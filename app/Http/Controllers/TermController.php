@@ -86,4 +86,5 @@ class TermController extends Controller
         $term->delete();
         return redirect()->back();
     }
+
 }

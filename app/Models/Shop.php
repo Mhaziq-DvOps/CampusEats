@@ -15,4 +15,5 @@ class Shop extends Model
     ];
 
     protected $primaryKey = 'Shop_Id';
+    
 }

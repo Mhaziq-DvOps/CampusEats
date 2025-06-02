@@ -29,9 +29,7 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+   
     <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
@@ -110,7 +108,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2024. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+                <p>© Copyright 2025. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->
@@ -296,7 +294,7 @@
     <!-- offset area end -->
     <!-- jquery latest version -->
     <script src="{{asset('admin-assets/js/vendor/jquery-2.2.4.min.js')}}"></script>
-    <!-- bootstrap 4 js -->
+ 
     <script src="{{asset('admin-assets/js/popper.min.js')}}"></script>
     <script src="{{asset('admin-assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('admin-assets/js/owl.carousel.min.js')}}"></script>

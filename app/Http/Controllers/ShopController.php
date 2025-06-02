@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
-use App\Models\Shop_Category;
 use App\Models\Product;
+use App\Models\BusinessHour;
 use Illuminate\Http\Request;
+use App\Models\Shop_Category;
 use Illuminate\Support\Facades\File;
 
 
@@ -160,5 +161,11 @@ class ShopController extends Controller
         else{
             return redirect('shop');
         }
+    }
+       
+    public function BusinessHour(){
+        //
+        $businesshour = BusinessHour::all();
+        return view('layouts.businesshour', ['businesshour' => $businesshour]);
     }
 }

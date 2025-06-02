@@ -25,9 +25,7 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+
     <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
@@ -61,7 +59,6 @@
                         @foreach($pay as $pay)
                         <div class="col-lg-4 col-md-6 mt-5">
                             <div class="card card-bordered">
-                                <img class="card-img-top img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($pay->Image)) }}" alt="image">
                                 <a href="{{ route('payment.edit', $pay->PM_Id) }}" class="fa fa-edit fa-2x"  style = "color:#4CAF50;  text-align:right;"></a>
                                 <div class="card-body">
                                     <h5 class="title">{{$pay->Name}}
@@ -96,7 +93,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+                <p>© Copyright 2025. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->

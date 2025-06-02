@@ -44,7 +44,6 @@ return [
             'driver' => 'session',
             'provider' => 'managers',
         ],
-
     ],
 
     /*
@@ -72,7 +71,7 @@ return [
             'managers'=>[
                 'driver'=>'eloquent',
                 'model'=>App\Models\Manager::class,
-            ]
+            ],
 
         // 'users' => [
         //     'driver' => 'database',

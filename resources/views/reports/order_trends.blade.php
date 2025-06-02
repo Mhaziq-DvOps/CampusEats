@@ -172,7 +172,7 @@
                                         <canvas id="payment_type" height="200"></canvas>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6 col-xxl-6 d-flex">
+                                {{-- <div class="col-12 col-lg-6 col-xxl-6 d-flex">
                                     <div class="card flex-fill">
                                         <div class="card-body">
                                             <h4 class="header-title">Order by</h4>
@@ -186,13 +186,13 @@
                                                     <option value="3">Annual</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <canvas id="service_type" height="200"></canvas>
-                                    </div>
+                                        {{-- </div> --}}
+                                        {{-- <canvas id="service_type" height="200"></canvas>
+                                    </div> 
                                 </div>
 
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- END Payment Types & Order Types PIE CHART -->
                     </div>
                 </div>
@@ -269,7 +269,6 @@
         </script>
 
         <!-- Payment Types PIE CHART-->
-        //paypal is removed becase im using stripe, paypal is cancelled
         <script>
             var xValues = ["Cash", "Stripe"];
             var yValues = <?php echo $orderPayment; ?>;
@@ -318,56 +317,56 @@
 
         </script>
 
-        <!-- Order Types PIE CHART -->
-        <script>
-            var xValues = ["DineIn", "Delivery", "PickUp", "Booking"];
-            var yValues =  <?php echo $orderService; ?>;
-            var barColors = [
-            "#004c6d",
-            "#436f8d",
-            "#7193af",
-            "#b6cee3",
-            ];
+        // <!-- Order Types PIE CHART -->
+        // <script>
+        //     var xValues = ["DineIn", "Delivery", "PickUp", "Booking"];
+        //     var yValues =  <?php echo $orderService; ?>;
+        //     var barColors = [
+        //     "#004c6d",
+        //     "#436f8d",
+        //     "#7193af",
+        //     "#b6cee3",
+        //     ];
             
       
-            var serviceChart = new Chart("service_type", {
-            type: "pie",
-            data: {
-                labels: xValues,
-                datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-                }]
-            },
-            options: {
+        //     var serviceChart = new Chart("service_type", {
+        //     type: "pie",
+        //     data: {
+        //         labels: xValues,
+        //         datasets: [{
+        //         backgroundColor: barColors,
+        //         data: yValues
+        //         }]
+        //     },
+        //     options: {
                 
-            }
-            });
-            function filterDataService() {
+        //     }
+        //     });
+        //     function filterDataService() {
             
 
-            if (document.getElementById("dataService").value == 0) {
-                var serviceAllTime = <?php echo $orderService; ?>;
-                serviceChart.data.datasets[0].data = serviceAllTime;
-            }
-            else if (document.getElementById("dataService").value == 1) {
-                var serviceWeekly = <?php echo $filterServiceWeek; ?>;
-                serviceChart.data.datasets[0].data = serviceWeekly;
-            }
-            else if (document.getElementById("dataService").value == 2) {
-                var serviceMonth = <?php echo $filterServiceMonth; ?>;
-                serviceChart.data.datasets[0].data = serviceMonth;
-            }
-            else if (document.getElementById("dataService").value == 3) {
-                var serviceAnnual = <?php echo $filterServiceYear; ?>;
-                serviceChart.data.datasets[0].data = serviceAnnual;
-            }
+        //     if (document.getElementById("dataService").value == 0) {
+        //         var serviceAllTime = <?php echo $orderService; ?>;
+        //         serviceChart.data.datasets[0].data = serviceAllTime;
+        //     }
+        //     else if (document.getElementById("dataService").value == 1) {
+        //         var serviceWeekly = <?php echo $filterServiceWeek; ?>;
+        //         serviceChart.data.datasets[0].data = serviceWeekly;
+        //     }
+        //     else if (document.getElementById("dataService").value == 2) {
+        //         var serviceMonth = <?php echo $filterServiceMonth; ?>;
+        //         serviceChart.data.datasets[0].data = serviceMonth;
+        //     }
+        //     else if (document.getElementById("dataService").value == 3) {
+        //         var serviceAnnual = <?php echo $filterServiceYear; ?>;
+        //         serviceChart.data.datasets[0].data = serviceAnnual;
+        //     }
 
-            serviceChart.update();
+        //     serviceChart.update();
            
-        }
+        // }
 
-        </script>
+        // </script>
 
         <!-- Category Product BAR CHART -->
         <script type="text/javascript">

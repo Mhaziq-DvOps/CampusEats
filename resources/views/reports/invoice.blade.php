@@ -26,6 +26,7 @@
 
     <div class="row" > 
         <div class="col-xs-6 text-center">
+<center>
             <br>
             <img src="/images/farahBanner.png" width="30%">
         </div>
@@ -38,6 +39,7 @@
                 // $time = $datetime->format('H:i');
                 
             @endphp
+            <center>
             <h1>INVOICE</h1>
             <h5>Order: {{ $order->Tracking_No }}</h5>
             <h5>Date: {{ $Dine_Datetime }}</h5>
@@ -49,8 +51,10 @@
         <div class="col-xs-5">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <center>
                     <h4>From: Farah Classic Sdn. Bhd.</h4>
                 </div>
+                <center>
                 <div class="panel-body">
                     <p>
                         Batu 11, Jalan Kluang, <br>
@@ -62,6 +66,7 @@
                 </div>
             </div>
         </div>
+        <center>
         <div class="col-xs-5 col-xs-offset-2 text-right">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -84,7 +89,7 @@
         $total = 0;
         $count = 0;
     @endphp
-
+<center>
     <table class="table table-striped table-bordered">
 
         <tr>

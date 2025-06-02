@@ -23,6 +23,11 @@ class Cart extends Model
 
     public function products()
     {
-        return $this->belongsTo(Product::class,'Pro_Id', 'P_Id');
+        return $this->belongsTo(Product::class,'Pro_Id', 'P_Id',);
     }
+    public function getProductAttribute()
+{
+    return $this->products->first();
+}
+
 }

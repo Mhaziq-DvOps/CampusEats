@@ -29,6 +29,7 @@ class CreateProduct extends Migration
             $table->integer('P_Status')->nullable();
             $table->integer('P_Quantity')->nullable();
             $table->string('P_Slug')->nullable();
+
             // Defina a Json column in the migration
             $table->json('features')->nullable();
             // $table->tinyInteger('features.fry')->default(false);
@@ -48,7 +49,7 @@ class CreateProduct extends Migration
             // $table->tinyInteger('features.fruit')->default(false);
             // $table->tinyInteger('features.vegie')->default(false);
             $table->timestamps();
-            
+
             // $affected = DB::table('product')
             //             -> where('P_Id')
             //             -> update(['features' => 'spicy', 'halal']);

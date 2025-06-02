@@ -3,9 +3,9 @@
 <body>
     
     <!-- preloader area start -->
-    <div id="preloader">
+    {{-- <div id="preloader">
         <div class="loader"></div>
-    </div>
+    </div> --}}
     <!-- preloader area end -->
     <!-- page container area start -->
     <div class="page-container">
@@ -39,9 +39,9 @@
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="col-md-4">
-                                <form action="/search" method="get">
+                                <form action="/feedback/search" method="get">
                                     <div class="input-group">
-                                    <input type="search" name="search" placeholder="Search..." style="margin-left: 15px; margin-top: 25px;" class="form-control">
+                                    <input type="search" name="search" placeholder="Search by menu name..." style="margin-left: 15px; margin-top: 25px;" class="form-control">
                                     <span class="input-group-prepend"><button type="submit" class="btn btn-primary" style=" margin-top: 25px;"><i class="ti-search"></i></button></span>
                                     </div>
                                 </form>

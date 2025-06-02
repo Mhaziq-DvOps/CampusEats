@@ -32,6 +32,7 @@ class Product extends Model
         'P_Id',
         'P_Name',
         'Cat_Id',
+        'Promotion_Id',
         'P_Price',
         'P_Disc_Price',
         'S_Description',
@@ -76,6 +77,22 @@ class Product extends Model
     {
     	return $this->hasOne(Product_Category::class, 'P_Cat_Id', 'Cat_Id');
     }
+    public function promotion()
+        {
+            return $this->belongsTo(Promotion::class, 'Promotion_Id'); // Adjust if your foreign key is different
+        }
+//for promotion price
+        public function getDiscountedPriceAttribute()
+        {
+            $original = $this->P_Price;
+            $discount = $this->promotion->Promo_Discount ?? 0;
+
+            if ($discount > 0) {
+                return round($original * (1 - ($discount / 100)), 2);
+            }
+
+            return $original;
+        }
 
 }
 

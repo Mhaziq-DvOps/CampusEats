@@ -124,8 +124,10 @@
                                                     {{ \Carbon\Carbon::parse($backup['last_modified'])->diffForHumans() }}
                                                 </td>
                                                 <td class="text-right">
-                                                    <a class="btn btn-success" href="{{ url('/backup/download/'.$backup['file_path']) }}"><i
-                                                        class="fa fa-cloud-download"></i> Download</a>
+                                                    {{-- <a class="btn btn-success" href="{{ url('/backup/download/'.$backup['file_path']) }}"> --}}
+                                                        <a class="btn btn-success" href="{{ url('/backup/download/' . urlencode($backup['file_path'])) }}">
+
+                                                        <i class="fa fa-cloud-download"></i> Download</a>
                                                         <a class="btn btn-danger" onclick="return confirm('Do you really want to delete this file')" data-button-type="delete"
                                                         href="{{ url('/backup/delete/'.$backup['file_name']) }}"><i class="fa fa-trash-o"></i>
                                                         Delete</a>
@@ -152,7 +154,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2024. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+                <p>© Copyright 2025. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->

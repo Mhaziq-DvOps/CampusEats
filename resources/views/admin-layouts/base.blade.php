@@ -69,8 +69,8 @@
                             <div class="card">
                                 <div class="seo-fact sbg2">
                                     <div class="p-4 d-flex justify-content-between align-items-center">
-                                        <div class="seofct-icon">Pending Request</div>
-                                        <h2>{{ $shop ?? 0 }}</h2>
+                                        <div class="seofct-icon">Total Shop</div>
+                                        <h2>{{ $shopCount ?? 0 }}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -89,8 +89,10 @@
                             <div class="card">
                                 <div class="seo-fact sbg4">
                                     <div class="p-4 d-flex justify-content-between align-items-center">
-                                        <div class="seofct-icon">New Partners</div>
-                                        <h2>{{$partner ?? 0}}</h2>
+                                        <div class="seofct-icon">Total Orders</div>
+                                        {{-- <h2>{{$partner ?? 0}}</h2> --}}
+                                    <h2>{{ $completedOrders ?? 0 }}</h2>
+
                                     </div>
                                 </div>
                             </div>
@@ -98,10 +100,11 @@
                     </div>
                 </div>
 
+                {{-- 
                 <!-- Pending Partners List -->
                 <div class="card mt-5">
                     <div class="card-body">
-                        <h4 class="header-title">Pending Partners List</h4>
+                        <h4 class="header-title">Partners List</h4>
                         <div class="table-responsive">
                             <table class="dbkit-table">
                                 <thead>
@@ -127,7 +130,51 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                        </div>
+                        </div> --}}
+
+                        <!-- All Partners List -->
+<div class="card mt-5">
+    <div class="card-body">
+        <h4 class="header-title">All Partners List</h4>
+        <div class="table-responsive">
+            <table class="dbkit-table">
+                <thead>
+                    <tr class="heading-td">
+                        <th>Company Name</th>
+                        <th>Category</th>
+                        <th>Manager Name</th>
+                        <th>Status</th>
+                        <th>Date Registered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($Manager ?? [] as $partner)
+                    <tr>
+                        <td>{{ $partner->Shop-> S_Name ?? 'N/A' }}</td>
+                        <td>Food & Beverages</td>
+                        <td>{{ $partner->Name ?? 'N/A' }}</td>
+                        <td>
+                            @if($partner->isBanned == 0)
+                                <span class="text-success">Active</span>
+                            @elseif($partner->isBanned == 1)
+                                <span class="text-danger">Banned</span>
+                            @elseif($partner->isBanned == 2)
+                                <span class="text-warning">Pending</span>
+                            @endif
+                        </td>
+                        <td>{{ $partner->created_at ?? 'N/A' }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5">No Partners Found</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
                     </div>
                 </div>
             </div>

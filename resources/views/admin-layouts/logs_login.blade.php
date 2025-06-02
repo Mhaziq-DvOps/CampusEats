@@ -29,9 +29,7 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+
     <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
@@ -84,8 +82,9 @@
                                                 <td>{{$log->Log_Id}}</td>
                                                 <td>{{$log->created_at}}</td>
                                                 <td>{{$log->Log_Status}} </td>
-                                                <td>{{ \App\Http\Controllers\UserController::getName($log->Cust_Id) }}</td>
-                                                <td>Customer</td>
+                                                <td>{{ $log->user_name }}</td>
+
+                                            <td>{{ $log->role }}</td>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -101,7 +100,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+                <p>© Copyright 2025. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->

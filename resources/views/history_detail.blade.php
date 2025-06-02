@@ -34,11 +34,21 @@
                   <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                     <p class="text-muted mb-0 small">{{$order->O_Notes}}</p>
                   </div>
-                  @if($order->O_Status=='1' && $item-> rstatus== 0)
+                  {{-- @if($order->O_Status=='4' && $item-> rstatus== 0)
                   <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                     <p class="text-muted mb-0 small"><a href= "/write-review/{{$item->products->P_Id}}">Write Review</a></p>
                   </div>
-                  @endif
+                  @endif --}}
+                  @if($order->O_Status == '5')
+                <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    @if($item->rstatus == 0)
+                        <p class="text-muted mb-0 small"><a href="/write-review/{{$item->products->P_Id}}">Write Review</a></p>
+                    @else
+                        <p class="text-success mb-0 small">Reviewed</p>
+                    @endif
+                </div>
+            @endif
+
                   <!-- sampai sini -->
                     @endforeach
                 </div>
@@ -48,7 +58,8 @@
 
             <div class="d-flex justify-content-between pt-2">
               <p class="fw-bold mb-0">Order Details</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Total:</span> RM{{ number_format((float) $order->O_Total_Price, 2, '.', '') }}</p>
+              {{-- <p class="text-muted mb-0"><span class="fw-bold me-4">Total:</span> RM{{ number_format((float) $order->O_Total_Price, 2, '.', '') }}</p> --}}
+              
             </div>
 
             <div class="d-flex justify-content-between">
@@ -57,7 +68,53 @@
 
             <div class="d-flex justify-content-between pt-2">
               <p class="text-muted mb-0">Address: {{$order->O_Street_1}} {{$order->O_Postcode}} {{$order->O_City}} {{$order->O_State}}</p>
-              <p class="text-muted mb-0"><span class="fw-bold me-4">Discount:</span> RM0.00</p>
+              {{-- <p class="text-muted mb-0"><span class="fw-bold me-4">Discount:</span> RM0.00</p> --}}
+               @php
+              $totalOriginal = 0;
+              $totalDiscounted = 0;
+          @endphp
+
+          @foreach($order->orderItems as $item)
+              @php
+                  $product = $item->products;
+                  $qty = $item->Order_Quantity;
+
+                  $original = $product->P_Price * $qty;
+                  $discounted = ($product->promotion_id && $product->P_Disc_Price)
+                      ? $product->P_Disc_Price * $qty
+                      : $original;
+
+                  $totalOriginal += $original;
+                  $totalDiscounted += $discounted;
+              @endphp
+          @endforeach
+            <p class="text-muted mb-0">Total:  RM{{ number_format($totalDiscounted, 2) }}
+
+               @php
+              $totalOriginal = 0;
+              $totalDiscounted = 0;
+          @endphp
+
+          @foreach($order->orderItems as $item)
+              @php
+                  $product = $item->products;
+                  $qty = $item->Order_Quantity;
+
+                  $original = $product->P_Price * $qty;
+                  $discounted = ($product->promotion_id && $product->P_Disc_Price)
+                      ? $product->P_Disc_Price * $qty
+                      : $original;
+
+                  $totalOriginal += $original;
+                  $totalDiscounted += $discounted;
+              @endphp
+          @endforeach
+
+          <p class="text-muted mb-0">
+              <span class="fw-bold me-4">Discount:</span>
+              RM{{ number_format($totalOriginal - $totalDiscounted, 2) }}
+          </p>
+
             </div>
 
             <div class="d-flex justify-content-between">

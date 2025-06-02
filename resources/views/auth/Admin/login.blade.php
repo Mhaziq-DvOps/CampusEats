@@ -10,6 +10,12 @@
                 <div class="card-header">{{ ('Admin Login') }}</div>
 
                 <div class="card-body">
+                    @if(session('error'))
+    <div class="alert alert-danger text-center">
+        {{ session('error') }}
+    </div>
+@endif
+
                     <form method="POST" action="admin-login">
                         @csrf
 

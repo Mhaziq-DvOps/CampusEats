@@ -1,6 +1,10 @@
 @extends('master')
 @section('content')
+<head>
+    <!-- Bootstrap Icons CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+</head>
 <!-- Page Header Start -->
 <div class="page-header mb-0">
     <div class="container">
@@ -15,6 +19,61 @@
         </div>
     </div>
 </div>
+
+<!-- offer section -->
+
+
+
+<section class="offer_section layout_padding-bottom bg-light py-5">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+
+      @php $now = now(); @endphp
+
+      @foreach ($promotionBanner as $shoppromotion)
+        @if ($shoppromotion->Promo_Status === 'Ongoing' && $now->between($shoppromotion->Promo_Start, $shoppromotion->Promo_End))
+          <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100">
+              <div class="position-relative">
+                <img src="{{ asset('images/' . $shoppromotion['Promo_Image']) }}" class="card-img-top img-fluid rounded-top" alt="Promotion image">
+
+              </div>
+              <div class="card-body text-center d-flex flex-column">
+                <h5 class="card-title text-primary">{{ $shoppromotion->Promo_Name }}</h5>
+                <h6 class="text-success">{{ $shoppromotion->Promo_Discount }}% Off</h6>
+                <p class="card-text text-muted mt-auto mb-0">
+                  From {{ \Carbon\Carbon::parse($shoppromotion->Promo_Start)->format('d M Y') }} to {{ \Carbon\Carbon::parse($shoppromotion->Promo_End)->format('d M Y') }}
+                </p>
+              </div>
+                <section class="position-relative">
+        <span class="badge bg-danger position-absolute top-0 start-0 m-3 fs-6 fw-bold" style="animation: pulse 1.5s infinite;">
+            🔥 Now On Promotion!
+        </span>
+            </div>
+          </div>
+        @endif
+      @endforeach
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+</style>
+
+
+
+
+
+    </div>
+    </div>
+</div>
+</section>
 <!-- Page Header End -->
 
 <!-- Menu Start -->
@@ -40,7 +99,7 @@
             @foreach ($category as $P_Cat)
                 <div id="category{{$P_Cat->P_Cat_Id}}" class="container tab-pane active">
                     <div class="row">
-                        <div class="col-lg-7 col-md-12">
+                        <div class="col-lg-10 col-md-12">
 
 
                        @php
@@ -60,7 +119,29 @@
             <h3 class="d-flex justify-content-between align-items-center">
                 <a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a>
                 <strong class="text-primary">RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong>
-            </h3>
+                
+             {{-- @php
+            $discounted = false;
+            $now = now();
+            if ($item->promotion && $now->between($item->promotion->Promo_Start, $item->promotion->Promo_End)) {
+                $discounted = true;
+                $discountPrice = $item->P_Price - ($item->P_Price * $item->promotion->Promo_Discount / 100);
+            }
+        @endphp
+
+        <strong class="text-primary">
+            @if($discounted)
+                <span class="text-danger" style="text-decoration: line-through;">
+                    RM{{ number_format($item->P_Price, 2) }}
+                </span>
+                RM{{ number_format($discountPrice, 2) }}
+            @else
+                RM{{ number_format($item->P_Price, 2) }}
+            @endif
+        {{-- </strong> --}}
+
+           
+            </h3> 
 
             <!-- Status label -->
             <div class="mb-2">
@@ -85,19 +166,30 @@
                 <input type="hidden" name="booktable" value="{{ $booktable }}">
                 
                    {{-- <div class="quantity input-group me-3 mb-2 ms-auto"> --}}
-                        <div class="quantity input-group mb-2"> <!-- Removed me-3, added pe-3 -->
+                        {{-- <div class="quantity input-group mb-2"> <!-- Removed me-3, added pe-3 -->
     
                     <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
                     <input type="number" step="1" max="10" value="1" name="Pro_qty" class="quantity-field border-0 text-center w-80" style="width: 80px;">
                     <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
+                </div> --}}
+                <div class="d-flex justify-content-end align-items-center mb-2">
+<div class="input-group quantity" style="margin-right: 40px;">
+                    <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm me-1 changeQuantity" data-field="Pro_qty">
+
+                    <input type="number" step="1" max="10" value="1" name="Pro_qty"
+                        class="quantity-field border-0 text-center" style="width: 80px;">
+
+                    <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm ms-1 changeQuantity" data-field="Pro_qty">
                 </div>
+            </div>
+
 
                 @if($item->P_Status == 1)
-                    <button class="button-cart addToCartBtn btn btn-sm btn-outline-primary mb-2">
+                    <button class="button-cart addToCartBtn btn btn-sm btn-outline-primary">
                         <i class="fa fa-shopping-cart"></i> Add to Cart
                     </button>
                 @else
-                    <button disabled class="button-cart btn btn-sm btn-secondary mb-2">
+                    <button disabled class="button-cart btn btn-sm btn-secondary">
                         <i class="fa fa-shopping-cart"></i> Unavailable
                     </button>
                 @endif
@@ -123,39 +215,21 @@
 </div>
 <!-- Menu End -->
 
-<!-- offer section -->
-
-
-<section class="offer_section layout_padding-bottom">
-<div class="offer_container">
-    <div class="container ">
-    <div class="row">
-    @foreach ($promotionBanner as $shoppromotion)
-        <div class="col-md-6  ">
-        <div class="box ">
-            <div class="img-box">
-            <!-- <img src="asset/img/o1.jpg" alt="Promotion Image"> -->
-            <img src="{{asset('images/'. $shoppromotion['Promo_Image'])}}"  alt = "Promotion image" class="promotionimage"/>
-            </div>
-            <div class="detail-box">
-            <h5>
-            {{$shoppromotion->Promo_Name}} 
-            </h5>
-            <h6>
-                <span>{{$shoppromotion->Promo_Discount}}%</span> Off
-            </h6>
-            <a >
-                From {{$shoppromotion->Promo_Start}} until {{$shoppromotion->Promo_End}}
-                
-            </a>
-            </div>
-        </div>
-        </div>
-        @endforeach
-    </div>
-    </div>
-</div>
-</section>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
 @endsection
@@ -197,4 +271,17 @@ $('.input-group').on('click', '.button-minus', function(e) {
     decrementValue(e);
 });
 </script>
+
+<script>
+    
+    // Auto-reload the page every 2 minutes (120000 milliseconds)
+    //60000 milliseconds = 1 minute
+    setInterval(function () {
+        location.reload();
+    }, 60000); // 1 minutes
+</script>
+
+
+    
+{{-- <script> --}}
 @endsection 

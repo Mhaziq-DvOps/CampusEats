@@ -11,21 +11,24 @@ class CustAnalyticsController extends Controller
     public static function analytics()
     {
 
-        $customer = DB::select("SELECT 
-        COUNT(CASE WHEN MONTH(created_at) = 6 THEN User_Id END) AS June,
-        COUNT(CASE WHEN MONTH(created_at) = 7 THEN User_Id END) AS July,
-        COUNT(CASE WHEN MONTH(created_at) = 8 THEN User_Id END) AS August,
-        COUNT(CASE WHEN MONTH(created_at) = 9 THEN User_Id END) AS September,
-        COUNT(CASE WHEN MONTH(created_at) = 10 THEN User_Id END) AS October,
-        COUNT(CASE WHEN MONTH(created_at) = 11 THEN User_Id END) AS November,
-        COUNT(CASE WHEN MONTH(created_at) = 12 THEN User_Id END) AS 'December',
-        COUNT(CASE WHEN MONTH(created_at) = 1 THEN User_Id END) AS 'January'
-        from customer_order
-        ");
-        foreach($customer as $row){
-            $customerChart = "[".$row->June.", ".$row->July.", ".$row->August.", ".$row->September.", ".$row->October.", ".$row->November.", ".$row->December.", ".$row->January."]";
+    $customer = DB::select("SELECT 
+        COUNT(CASE WHEN MONTH(created_at) = 3 THEN User_Id END) AS March,
+        COUNT(CASE WHEN MONTH(created_at) = 4 THEN User_Id END) AS April,
+        COUNT(CASE WHEN MONTH(created_at) = 5 THEN User_Id END) AS May,
+        COUNT(CASE WHEN MONTH(created_at) = 5 THEN User_Id END) AS June,
+        COUNT(CASE WHEN MONTH(created_at) = 5 THEN User_Id END) AS July
+    FROM customer_order");
 
-        }
+    foreach($customer as $row){
+    $customerChart = json_encode([
+        $row->March,
+        $row->April,
+        $row->May
+    ]);
+}
+
+
+        
 
 
         $totCust = DB::select("SELECT COUNT(id) as total FROM users");

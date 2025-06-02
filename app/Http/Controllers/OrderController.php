@@ -110,7 +110,7 @@ class OrderController extends Controller
 
         return redirect()
         ->route('order.index')
-        ->with('success', 'Order updated successfully');
+                ->with('success', 'Order updated successfully');
     }
 
     /**
@@ -145,6 +145,68 @@ class OrderController extends Controller
             'O_Status' =>  $request->input('O_Status'),
         ]);
 
-        return redirect()->back();    }
+        return redirect()->back();    
+    }
+
+
+
+public function checkoutComplete($orderId)
+{
+    $order = Order::find($orderId);
+
+    if (!$order) {
+        return redirect('/')->with('error', 'Order not found');
+    }
+
+    return view('checkout_complete', compact('order'));
+}
+        public function cancelOrder($id)
+        {
+            $order = Order::findOrFail($id);
+
+            // Hanya benarkan cancel kalau status masih "Order Receive"
+            if ($order->O_Status == 1) {
+                $order->O_Status = 0; // 0 = canceled
+                $order->save();
+
+                return redirect()->back()->with('success', 'Your order has been canceled.');
+            }
+
+            return redirect()->back()->with('error', 'You cannot cancel this order at this stage.');
+        }
+public function orderHistory(Request $request)
+{
+    $userId = auth()->id();
+    $filter = $request->query('filter');
+
+    $query = Order::where('user_id', $userId);
+
+    if ($filter === 'approved') {
+        $query->where('O_Status', 5); // Assuming 4 means "picked up"
+    } elseif ($filter === 'pending') {
+        $query->whereNotIn('O_Status', [0, 5]); // Exclude Canceled (0) and Completed (4)
+    }
+
+    $orders = $query->get();
+
+    return view('order_history', [
+        'order' => $orders
+    ]);
+}
+
+public function markAsPickedUp($id)
+{
+    $order = Order::findOrFail($id);
+
+    if ($order->O_Status == 4) { // Only allow pickup confirmation if food is ready
+        $order->O_Status = 5; // Mark as Picked Up
+        $order->save();
+
+        return redirect()->back()->with('success', 'Thank you! Your pickup has been confirmed.');
+    }
+
+    return redirect()->back()->with('error', 'You can only confirm pickup when the order is marked as Complete.');
+}
+
 }
 

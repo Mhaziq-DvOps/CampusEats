@@ -25,16 +25,17 @@ if (Auth::check()) {
                 
                 {{-- comment on 5 May 2025 --}}
                 {{-- <a href="shop_category" class="nav-item nav-link active">Shop</a> --}}
-
+                  
                 <a href="catalogue" class="nav-item nav-link active">Food</a>
                 {{-- "previously shop_category" , Edited on 20April2025--}}
 
                 <div class="nav-item dropdown show">
                 @if (Auth::check())
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
+                    <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                     <div class="dropdown-menu  ">
                         <a href="/profileDetail" class="dropdown-item">Profile</a>
-                        <a href="order_history" class="dropdown-item">My Order</a> 
+                        <a href="order_history" class="dropdown-item">My Order</a>  
+                        <li><a class="dropdown-item" href="{{ route('my.orders') }}">Track Order</a></li>
                             
                         <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         Logout </a>
@@ -52,6 +53,8 @@ if (Auth::check()) {
                     <div class="dropdown-menu">
                         <a href="/login" class="dropdown-item">Customer Login</a>
                         <a href="manager_login" class="dropdown-item">Manager Login</a>
+                        <a href="admin-login" class="dropdown-item">Admin Login</a>
+
                         <a href="/register" class="dropdown-item">Register</a>
                             
                     </div>

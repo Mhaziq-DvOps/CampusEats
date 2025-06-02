@@ -252,72 +252,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- product sold area end -->
-                    <!-- team member area start 
-                    <div class="col-xl-4 col-lg-5 col-md-12 mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-sm-flex flex-wrap justify-content-between mb-4 align-items-center">
-                                    <h4 class="header-title mb-0">Feedback</h4>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="dbkit-table">
-                                        <tbody>
-                                            <tr class="heading-td">
-                                                <td><strong>Product</strong></td>
-                                                <td><strong>Rating</strong></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nasi Lemak</td>
-                                                <td><span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nasi Goreng</td>
-                                                <td><span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bihun Goreng</td>
-                                                <td><span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Teh Ais</td>
-                                                <td><span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="pagination_area pull-right mt-5">
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     team member area end -->
+
                     <!-- team member area start -->
                     <div class="col-xl-4 col-lg-5 col-md-12 mt-5">
                         <div class="card">

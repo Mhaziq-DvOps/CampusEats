@@ -30,10 +30,7 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- preloader area start -->
+
     <div id="preloader">
         <div class="loader"></div>
     </div>
@@ -86,13 +83,15 @@
                                                 <td>{{$log->Log_Id}}</td>
                                                 <td>{{$log->created_at}}</td>
                                                 <td>
-                                                    @if ($log->Log_Pay_Type==0)
+                                                    @if ($log->Log_Pay_Type==1)
+                                                    Stripe
+                                                @elseif ($log->Log_Pay_Type==0 )    
                                                     Cash
-                                                @else
-                                                    Paypal
+                                                    @else
+                                                    Unkown
                                                 @endif</td>
                                                 <td>{{$log->Log_Total_Price}}</td>
-                                                <td>Rack</td>
+                                                <td>{{ $log->user->name ?? 'Unknown' }}</td>
                                                 <td>{{$log->Log_Status}}</td>
                                             </tr>
                                             @endforeach
@@ -110,7 +109,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2024. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
+                <p>© Copyright 2025. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->

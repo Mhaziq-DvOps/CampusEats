@@ -88,7 +88,7 @@
 												</div>
 												<h1 class="mt-1 mb-3"><?php echo $todayCustomer?></h1>
 												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
+													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> </span>
 													<span class="text-muted">Since yesterday</span>
 												</div>
 											</div>
@@ -99,7 +99,7 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="header-title mb-0">New Cuctomer</h5>
+														<h5 class="header-title mb-0">New Customer</h5>
 													</div>
 
 													<div class="col-auto">
@@ -110,7 +110,7 @@
 												</div>
 												<h1 class="mt-1 mb-3"><?php echo $newCustomer?></h1>
 												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
+													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>
 													<span class="text-muted">Since last week</span>
 												</div>
 											</div>
@@ -130,7 +130,7 @@
 												</div>
 												<h1 class="mt-1 mb-3"><?php echo $repeatCustomer?></h1>
 												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
+													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i></span>
 													<span class="text-muted">Since last week</span>
 												</div>
 											</div>
@@ -152,7 +152,7 @@
                                 </div>
 								<div class="card-body py-3">
 									<div class="chart chart-sm">
-										<canvas id="customerChart" height="270"></canvas>
+										<canvas id="customerChart" width="400" height="270"></canvas>
 									</div>
 								</div>
 							</div>
@@ -184,30 +184,7 @@
 						</div>
                         {{-- end top popular customer --}}
 
-                        {{-- Review Word Cloud chart start --}}
-						<div class="col-12 col-lg-3 col-xxl-3 d-flex">
-							<div class="card flex-fill w-100">
-								<div class="s-report-title d-flex justify-content-between" style="padding:25px 25px 0px 25px">
-                                    <h4 class="header-title mb-0">Most Popular Word</h4>
-                                    
-                                </div>
-								<div class="card-body d-flex">
-									<div class="align-self-center w-100">
-										
-											
-                                        <div id="wordCloud"></div>
-											
-										
-
-										
-									</div>
-								</div>
-
-
-							</div>
-						</div>
-                        {{-- Review Word Cloud chart end --}}
-
+                      
                         {{-- sentiment analysis chart start --}}
 						<div class="col-12 col-lg-3 col-xxl-3 d-flex">
 							<div class="card flex-fill w-100">
@@ -254,7 +231,7 @@
 					</div>
 
                     
-                    {{-- END FROM ADMINKIT-DEV --}}
+                  
 
 
 
@@ -404,31 +381,7 @@
         });
     </script>
 
-    {{-- word cloud start --}}
-    <script>
-        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
-        zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
-        var myConfig = {
-        type: 'wordcloud',
-        options: {
-            text: 'The food was exposed, so many fly. Very expensive and taste dull..owner and staff never smile and take so long to take order. Seriously regret! Various traditional Malay dishes and you can eat almost everything here. There is also kueh, satay and so much more. Food is nice. Price is slightly on the high side. It costs us RM1133.00 today for 30 people dine. There were 6 pcs Siakap 3 rasa, 6 pcs Pari Sambal Petai, Lala sambal manis 5 full plate, Limau Ais 5 jugs, Sotong Goreng Tepung 1.3kg, Tom Yam for 30 people, Kailan ikan masin 5 set and Ikan merah 3 rasa 1 pcs. Affordable and service fast than expected. However, disappointed as they dont accept table reservation before orders been made. They even discounted and need to pay only RM1100 without even kami minta to be discounted. Thanks! Accept MAYBANK QR Pay',
-            minLength: 4,
-            maxItems: 30,           
-    
-            
-        }
-        };
-        zingchart.render({
-        id: 'wordCloud',
-        data: myConfig,
-        height: 300,
-        width: '100%'
-        });
-  
-
-    </script>
-    {{-- word cloud end --}}
-
+   
 
 
     {{-- sentiment analysis pie chart --}}
@@ -483,8 +436,9 @@
             
         }
     </script>
+    
 
-    // <!-- end sentiment analysis pie chart -->
+   
 
     // <!-- bar chart from google -->
     <script type="text/javascript">
@@ -715,69 +669,56 @@
             }
     </script>
 
-    //<!-- customer line chart -->
+    // <!-- customer line chart -->
     
-    <script>
-        
-        var xValues = ["June '21", "Jul '21", "Aug '21", "Sept '21", "Oct '21", "Nov '21", "Dec '21", "Jan '22"];
-        var yValues = <?php echo $customerChart; ?>;
-        var ctx = document.getElementById("customerChart").getContext("2d");   
-        var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-		gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-            
-            new Chart(document.getElementById("customerChart"), {
-            type: "line",
-            data: {
-                labels: xValues,
-                datasets: [{
-                    label: "Customer",
-                    fill: true,
-                    lineTension: 0.4,
-                    backgroundColor: gradient,
-                    borderColor: "rgba(0,0,255,0.1)",
-                    data: yValues
-                }]
+<script>
+
+    var xValues = ["Mar '25", "Apr '25", "May '25", "Jun '25", "Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25"];
+    var yValues = {!! $customerChart !!};
+
+    var ctx = document.getElementById("customerChart").getContext("2d");
+    var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+    gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+    gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                label: "Customer",
+                fill: true,
+                lineTension: 0.4,
+                backgroundColor: gradient,
+                borderColor: "rgba(0,0,255,0.1)",
+                data: yValues
+            }]
+        },
+        options: {
+            legend: { display: false },
+            maintainAspectRatio: false,
+            tooltips: { intersect: false },
+            hover: { intersect: true },
+            plugins: {
+                filler: { propagate: false }
             },
-            options: {
-                legend: {display: false},
-                maintainAspectRatio: false,
-                tooltips: {
-						intersect: false
-					},
-					hover: {
-						intersect: true
-					},
-					plugins: {
-						filler: {
-							propagate: false
-						}
-					},
-                scales: {
-                    xAxes: [{
-							reverse: true,
-							gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-						}],
-                    yAxes: [{
-                        ticks: {
-                            min: 0, 
-                            max:10,
-                            stepSize: 2
-                        },   
-                        gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-                                    
-                        
-                            
-                    }]
-                }
+            scales: {
+                xAxes: [{
+                    reverse: true,
+                    gridLines: { color: "rgba(0,0,0,0.0)" }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 2
+                    },
+                    gridLines: { color: "rgba(0,0,0,0.0)" }
+                }]
             }
-            });
-	</script>
-        
+        }
+    });
+</script>
+
 
     //<!-- customer by marital -->
     <script>

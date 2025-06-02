@@ -53,7 +53,9 @@
                         </ul>
                     </li>
 
-                    <!-- System Options -->
+                 
+                 
+                    {{-- <!-- System Options -->
                     <li class="{{ request()->is('captcho', 'backup', 'cleanup') ? 'active' : '' }}">
                         <a aria-expanded="{{ request()->is('captcho', 'backup', 'cleanup') ? 'true' : 'false' }}">
                             <i class="fa fa-wrench"></i><span>System Options</span>
@@ -69,7 +71,7 @@
                                 <a href="/cleanup">Cleanup</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <!-- Users -->
                     <li class="{{ request()->is('customer*', 'manager*', 'ban_user*') ? 'active' : '' }}">
@@ -89,24 +91,7 @@
                         </ul>
                     </li>
 
-                    <!-- Partners -->
-                    <li class="{{ request()->is('shop*', 'indexPend', 'indexBan') ? 'active' : '' }}">
-                        <a aria-expanded="{{ request()->is('shop*', 'indexPend', 'indexBan') ? 'true' : 'false' }}">
-                            <i class="fa fa-users"></i><span>Partners</span>
-                        </a>
-                        <ul class="collapse">
-                            <li class="{{ request()->routeIs('shop.index') ? 'active' : '' }}">
-                                <a href="{{ route('shop.index') }}">List</a>
-                            </li>
-                            <li class="{{ request()->is('indexPend') ? 'active' : '' }}">
-                                <a href="/indexPend">Pending Request</a>
-                            </li>
-                            <li class="{{ request()->is('indexBan') ? 'active' : '' }}">
-                                <a href="/indexBan">Banned Partners</a>
-                            </li>
-                        </ul>
-                    </li>
-
+             
                     <!-- Logs -->
                     <li class="{{ request()->is('logs_login', 'logs_pay') ? 'active' : '' }}">
                         <a aria-expanded="{{ request()->is('logs_login', 'logs_pay') ? 'true' : 'false' }}">

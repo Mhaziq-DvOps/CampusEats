@@ -38,7 +38,7 @@ class CheckoutController extends Controller
             }
         }
         $cartitems = Cart::where('cust_id', Auth::id())->get();
-
+        
         $notes = $req->extranotes;
         $table = DB::table('restaurant_table')->get();
         $payment = DB::table('payment_type')->get();
@@ -47,9 +47,15 @@ class CheckoutController extends Controller
         foreach ($orType as $row) {
             $oType = "$row->Order_Type";
         }
+            $cashEnabled = \App\Models\Payment::where('PM_Id', 1)->value('Status') == 1;
+             $stripeEnabled = \App\Models\Payment::where('PM_Id', 2)->value('Status') == 1;
 
-        return view('checkout_shipping', compact('cartitems', 'notes', 'payment', 'table', 'oType'));
+
+
+        return view('checkout_shipping', compact('cartitems', 'notes', 'payment', 'table', 'oType','cashEnabled','stripeEnabled'));
     }
+
+
     function orderPlace(Request $req)
     {
 
@@ -68,11 +74,18 @@ class CheckoutController extends Controller
         $order->Remarks = $req->input('Remarks');
         $order->O_Date = $req->input('odate');
         $order->O_Time = $req->input('otime');
+        $order->O_Status = 1; // Mark order as completed
+
 
         $total = 0;
         $cartitems_total = Cart::where('Cust_Id', Auth::id())->get();
         foreach ($cartitems_total as $prod) {
-            $total += $prod->products->P_Price * $prod->Pro_Qty;
+            //guna harga promosi jika ada
+            $hasPromotion = $prod->products->promotion_id && $prod->products->P_Disc_Price;
+            $finalPrice = $hasPromotion ? $prod->products->P_Disc_Price : $prod->products->P_Price;
+            $total += $finalPrice * $prod->Pro_Qty;
+
+            // $total += $prod->products->P_Price * $prod->Pro_Qty;
             $bookdate = $prod->BookDate;
             $bookpax = $prod->BookPax;
             $booktime = $prod->BookTime;
@@ -126,18 +139,41 @@ class CheckoutController extends Controller
         $logs->save();
 
         $cartitems = Cart::where('Cust_Id', Auth::id())->get();
+        // foreach ($cartitems as $item) {
+        //     OrderProduct::create([
+        //         'Order_Id' => $order->id,
+        //         'P_Id' => $item->Pro_Id,
+        //         'Order_Quantity' => $item->Pro_Qty,
+        //         'Order_Price' => $item->products->P_Price * $item->Pro_Qty,
+        //     ]);
+        // }
+
         foreach ($cartitems as $item) {
-            OrderProduct::create([
-                'Order_Id' => $order->id,
-                'P_Id' => $item->Pro_Id,
-                'Order_Quantity' => $item->Pro_Qty,
-                'Order_Price' => $item->products->P_Price * $item->Pro_Qty,
-            ]);
+        $product = $item->products;
+
+        // Semak kalau produk ada promosi
+        $hasPromotion = $product->promotion_id && $product->P_Disc_Price;
+        $finalPrice = $hasPromotion ? $product->P_Disc_Price : $product->P_Price;
+
+        OrderProduct::create([
+            'Order_Id' => $order->id,
+            'P_Id' => $item->Pro_Id,
+            'Order_Quantity' => $item->Pro_Qty,
+            'Order_Price' => $finalPrice * $item->Pro_Qty, // Gunakan harga selepas promosi
+        ]);
         }
+
+
         $cartitems = Cart::where('Cust_Id', Auth::id())->get();
         Cart::destroy($cartitems);
 
-        return view('checkout_summary');
+        // return view('checkout_summary');
+        //redirect to checkout summary with its order id
+        // return redirect()->route('checkout_complete', ['orderId' => $order->id]);
+
+        return redirect()->route('checkout_complete', ['orderId' => $order->id])
+                 ->with('success', 'Order placed successfully!');
+
     }
     public function summary()
     {
@@ -256,6 +292,9 @@ class CheckoutController extends Controller
     $order->Remarks = '-';
     $order->O_Date = Carbon::now()->toDateString();
     $order->O_Time = Carbon::now()->toTimeString();
+    $order->O_Status = 1; // Mark Stripe order as completed
+
+
 
     $orType = DB::table('cart')->where('Cust_Id', Auth::id())->value('Order_Type');
     $order->O_Type = $orType;
@@ -290,7 +329,22 @@ class CheckoutController extends Controller
     // Delete cart
     Cart::destroy($cartitems->pluck('id'));
 
-    return view('checkout_summary', compact('order'));
+    // return view('checkout_summary', compact('order'));
+    return redirect()->route('checkout_complete', ['orderId' => $order->id])
+                 ->with('success', 'Stripe order placed successfully!');
+
 }
+public function checkoutShipping()
+{
+    $cartItems = Cart::with('product.promotion')->where('user_id', auth()->id())->get();
+    return view('checkout_shipping', compact('cartItems'));
+}
+
+    public function myOrders()
+    {
+        $orders = Order::where('User_Id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return view('my_orders', compact('orders'));
+    }
+
 
 }
