@@ -18,8 +18,4 @@ class Product_Category extends Model
     
     protected $primaryKey = 'P_Cat_Id';
 
-    // public function products()
-    // {
-    //     return $this->hasMany(Product::class);
-    // }
 }

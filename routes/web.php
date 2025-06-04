@@ -237,7 +237,9 @@ Route::resource('/shop', ShopAdminController::class);
 Route::get('admin-login', function () {
     return view('auth/admin/login');
 });
-Route::post('admin-login', [UserController:: class, 'dash']) ;
+// Route::post('manager_login', [ManagerController:: class, 'manager_login']) ;
+
+Route::post('admin-login', [AdminController:: class, 'admin_login']) ;
 
 //captcho
 Route::get('/captcho', [CaptchaServiceController::class,'index']);
@@ -247,19 +249,6 @@ Route::get('capt-edit/{Capt_Id}', [CaptchaServiceController::class, 'edit']);
 
 
 Route::get('/indexPend', [RestaurantController::class,'indexPend']);
-
-// Route::get('/backup', 'App\Http\Controllers\BackupController@index');
-// Route::get('/backup/create', 'App\Http\Controllers\BackupController@create');
-// Route::get('/backup/download/{file_path}', 'App\Http\Controllers\BackupController@create');
-// Route::get('/backup/delete/{file_name}', [BackupController::class,'delete']);
-
-// Route::get('/backup', [BackupController::class, 'index']);
-// Route::get('/backup/create', [BackupController::class, 'create']);
-// Route::get('/backup/download/{file_path}', [BackupController::class, 'download'])->where('file_path', '.*');
-// Route::delete('/backup/delete/{file_name}', [BackupController::class, 'delete']);
-
-// Route::get('/backup/download/{file_path}', [BackupController::class, 'download'])
-//     ->where('file_path', '.*');
 
 
 Route::resource('/shopcategory', ShopCategoryController::class);

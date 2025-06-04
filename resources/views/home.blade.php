@@ -27,17 +27,6 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head> 
-        
-        {{-- <div class="welcome-header text-center">
-            <h1>WELCOME TO CampusEats</h1>
-
-        <p class="lead">Hassle-free to Eat at Campus</p>
-
-        </div> --}}
-        {{-- <div class="py-5 text-center bg-light border-bottom shadow-sm">
-    <h1 class="display-4 fw-bold text-warning">Welcome to <span class="text-warning">CampusEats</span></h1>
-    <p class="lead text-muted">Hassle-free way to eat at campus. Discover promotions, top picks, and more!</p>
-</div> --}}
     <div class="py-5 text-center bg-light border-bottom shadow-sm">
         <h1 class="display-3 fw-bold mb-3">Welcome to <span class="text-warning">CampusEats</span></h1>
         <p class="lead mb-4">Your hassle-free solution for delicious campus dining</p>
@@ -158,19 +147,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6">
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-                    
+                    </div>          
 
 <!-- Service Start -->
         <div class="container-xxl py-5">
@@ -217,40 +194,9 @@
         </div>
         <!-- Service End -->
 
-{{-- ------------------------------------------------------- --}}
-                    
-                        {{-- <div class="about-img"> --}}
-                            {{-- <img src="asset/img/CampusEatsLogo.png" alt="Image"> --}}
-                            {{-- <img src="asset/img/CampusEatsLogo.png" alt="Image" width="70" height="auto">
-
-                        </div> --}}
-                    {{-- <div class="col-lg-6">
-                        <div class="about-content">
-                            <div class="section-header">
-                                <strong>About Us</strong>
-                                <h2>Online Dynamic Ordering System</h2>
-                            </div>
-                            <div class="about-text">
-                                <p>
-                                    CampusEats is an Online Dynamic Ordering system that allows food Ordering Through Online Platform. 
-                                </p>
-                                <p>
-                                    CampusEats provide with various kinds of payment methods to ease the customer when making order. 
-                                </p>
-                                <a class="btn custom-btn" href="/about">More Info</a>
-                                <!-- <a class="btn custom-btn" href="about.html">More Info</a> -->
-
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
-        <!-- About End -->
-
-
-
-
 
 <!-- Popular Menu Section -->
 <section class="py-5 bg-light">

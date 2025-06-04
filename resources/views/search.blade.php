@@ -40,5 +40,12 @@
         @endif
     </div>
 </div>
-
+    
+    <script>
+    // Auto-reload the page every 2 minutes (120000 milliseconds)
+    //60000 milliseconds = 1 minute
+    setInterval(function () {
+        location.reload();
+    }, 60000); // 1 minutes
+</script>
 @endsection

@@ -99,14 +99,7 @@ class OrderController extends Controller
         $order->update([
             'O_Status' =>  $request->input('O_Status'),
         ]);
-        /*$logs=new ManagerLogs;
-        $logs->Cust_Id=Auth::id();
-        $logs->ML_Type=$request->input('ML_Type');
-        $logs->ML_Status=$request->input('ML_Status');
-        $logs->created_at=Carbon::now();
-        $logs->updated_at=Carbon::now();
 
-        $logs->save();*/
 
         return redirect()
         ->route('order.index')

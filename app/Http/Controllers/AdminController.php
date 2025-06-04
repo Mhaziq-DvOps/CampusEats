@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use App\Models\Admin;
+use App\Models\Order;
 use App\Models\Manager;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -22,15 +23,20 @@ class AdminController extends Controller
         $admin= Admin:: where (['Email' =>$req->email])->first();
         $user = DB::table('users')->count();
         $manager = DB::table('manager')->count();
+        $allManagers = Manager::with('shop')->get();
+
         $total = $user + $manager;
         $shop = Manager::where('isBanned', 2)->get();
-        $shopCount = $shop->count();
+        $shopCount = Shop::where('S_Status', 0)->distinct('Shop_Id')->count('Shop_Id');
         // $bancust = Customer::where(column: 'isBanned', 1)->get();
         $banman = Manager::where('isBanned', 1)->get();
         // $custCount = $bancust->count();
         $manCount = $banman->count();
         // $banuser = $custCount + $manCount;
-        
+        $orders = Order::count();
+        $pendingOrders = Order::where('O_Status', '1')->count();
+        $completedOrders = Order::where('O_Status', '5')->count();
+
         if(!$admin || !Hash::check ($req ->password, $admin-> Password))
         {
             // return "Username or password is not matched";
@@ -39,12 +45,9 @@ class AdminController extends Controller
 
         else {
             $req->session() ->put ('admin', $admin);
-            // return redirect ('layouts/index');
-            //redirect betul
-            //guna ni bawah dulu for now
-            // return view ('admin-layouts.base');
-                    return view('admin-layouts.base')->with('total',$total)->with('shop',$shopCount)
-        ->with('pending',$shop);
+            
+            return view('admin-layouts.base')->with('total',$total)->with('shopCount',$shopCount)
+        ->with('pending',$shop)->with('orders', $orders) ->with('pendingOrders', $pendingOrders)->with('completedOrders', $completedOrders)->with('Manager', $allManagers);
         }
 
     }

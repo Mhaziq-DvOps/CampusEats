@@ -13,40 +13,7 @@
                 <th>Action</th>
             </tr>
         </thead>
-        {{-- <tbody>
-            @forelse($orders as $order)
-            <tr>
-                <td>{{ $order->id }}</td>
-                <td>{{ number_format($order->O_Total_Price, 2) }}</td>
-                <td>
-                    @if($order->O_Status == 0)
-                        <span class="badge bg-danger">Cancelled</span>
-                    @elseif($order->O_Status == 1)
-                        <span class="badge bg-warning">Order Received</span>
-                    @elseif($order->O_Status == 2)
-                        <span class="badge bg-warning">Preparing</span>
-                    @elseif($order->O_Status == 3)
-                        <span class="badge bg-warning">Ready</span>
-                    @elseif($order->O_Status == 4)
-                        <span class="badge bg-warning">Ready for Pickup</span>
-                    @elseif($order->O_Status == 5)
-                        <span class="badge bg-success">Picked Up</span>
-                    @else
-                        <span class="badge bg-secondary">Unknown</span>
-                    @endif
-                </td>
-                <td>{{ $order->created_at->format('d M Y, h:i A') }}</td>
-                <td>
-                    <a href="{{ route('checkout_complete', ['orderId' => $order->id]) }}" class="btn btn-sm btn-primary">Track</a>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="5">You have no orders yet.</td>
-            </tr>
-            @endforelse
-        </tbody> --}}
-
+      
         <tbody>
     @forelse($orders as $order)
         @if($order->O_Status != 5) {{-- Skip orders that are picked up --}}
@@ -70,7 +37,7 @@
             </td>
             <td>{{ $order->created_at->format('d M Y, h:i A') }}</td>
             <td>
-                <a href="{{ route('checkout_complete', ['orderId' => $order->id]) }}" class="btn btn-sm btn-primary">Track</a>
+                <a href="{{ route('checkout_complete', parameters: ['orderId' => $order->id]) }}" class="btn btn-sm btn-primary">Track</a>
             </td>
         </tr>
         @endif

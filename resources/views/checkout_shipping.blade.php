@@ -38,26 +38,7 @@ require_once __DIR__.'/../../../vendor/autoload.php';
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @php
-                                        $totalPrice = 0;
-                                    @endphp
-                                    @foreach($cartitems as $item)
-                                        @php
-                                            $product = $item->products;
-                                            $originalPrice = $product->P_Price;
-                                            $discount = $item->promotion_id && $item->P_Disc_Price ?? 0;
-                                            $finalPrice = $discount > 0
-                                                ? round($originalPrice * (1 - $discount / 100), 2)
-                                                : $originalPrice;
-                                            $lineTotal = $finalPrice * $item->Pro_Qty;
-                                            $totalPrice += $lineTotal;
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $item->Pro_Qty }}</td>
-                                            <td>{{ $product->P_Name }}</td>
-                                            <td>RM{{ number_format($lineTotal, 2, '.', '') }}</td>
-                                        </tr>
-                                    @endforeach --}}
+
 
                                   @php $totalPrice = 0;
                                       $totalOriginalPrice = 0; // New variable to store total price without discount
@@ -102,7 +83,6 @@ require_once __DIR__.'/../../../vendor/autoload.php';
                                 </tbody>
                             </table>
 
-                            {{-- <p>Order Type: {{ $oType }}</p> --}}
 
                             Notes: <input type="text" class="form-control notes" value="{{ $notes }}" name="O_Notes" placeholder="Enter Notes">
                             <label for="reject">If product not available:</label>
@@ -180,16 +160,6 @@ require_once __DIR__.'/../../../vendor/autoload.php';
                                     <button type="button" class="btn btn-secondary w-100 mt-3" disabled>Pay with Cash (Disabled)</button>
                                 @endif
 
-                                {{-- <button type="submit" name="payment" value="Cash" class="btn btn-success w-100 mt-3">Pay with Cash</button> --}}
-
-                                {{-- @if(\Session::has('success'))
-                                    <div class="alert alert-success">{{ \Session::get('success') }}</div>
-                                    {{ \Session::forget('success') }}
-                                @endif
-
-                                <button id="stripe-checkout" name="payment" value="Stripe" class="btn btn-success w-100 mt-3" style="background-color: black">Pay with Stripe</button>
-                                 --}}
-
                                  @if(Session::has('success'))
                                 <div class="alert alert-success">{{ Session::get('success') }}</div>
                                 {{ Session::forget('success') }}
@@ -214,7 +184,8 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 </div>
 
 <?php
-\Stripe\Stripe::setApiKey('sk_test_51Q7u8j2L1aVEtKIRHG670oCl9ogBxkSVcURtf2w8T2eStpIdPmKFrFGgV2GQwgIM09NILPLMs3xgmdJCe56nAcxJ00PjNu8Gz9');
+// \Stripe\Stripe::setApiKey('sk_test_51Q7u8j2L1aVEtKIRHG670oCl9ogBxkSVcURtf2w8T2eStpIdPmKFrFGgV2GQwgIM09NILPLMs3xgmdJCe56nAcxJ00PjNu8Gz9');
+\Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
 $session = \Stripe\Checkout\Session::create([
     'line_items' => [[
@@ -234,10 +205,12 @@ $session = \Stripe\Checkout\Session::create([
 ?>
 
 @endsection
+   {{-- const stripe = Stripe('pk_test_51Q7u8j2L1aVEtKIRAE0zyXAqi8nZNX6M5UOrnrDiy10jKnAVJuwvsZmi2kkoQB5xPCd8AlGPmz7i2cJuJyQ17Ybi00FTMzZOFw'); --}}
 
 @section('scripts')
 <script>
-   const stripe = Stripe('pk_test_51Q7u8j2L1aVEtKIRAE0zyXAqi8nZNX6M5UOrnrDiy10jKnAVJuwvsZmi2kkoQB5xPCd8AlGPmz7i2cJuJyQ17Ybi00FTMzZOFw');
+   const stripe = Stripe("{{ env('STRIPE_PUBLIC_KEY') }}");
+
    const btn = document.getElementById("stripe-checkout");
    btn.addEventListener('click', function(e){
        e.preventDefault();

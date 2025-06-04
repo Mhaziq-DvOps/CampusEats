@@ -118,27 +118,17 @@
         <div class="menu-text flex-grow-1">
             <h3 class="d-flex justify-content-between align-items-center">
                 <a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a>
-                <strong class="text-primary">RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong>
+                {{-- <strong class="text-primary">RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong> --}}
                 
-             {{-- @php
-            $discounted = false;
-            $now = now();
-            if ($item->promotion && $now->between($item->promotion->Promo_Start, $item->promotion->Promo_End)) {
-                $discounted = true;
-                $discountPrice = $item->P_Price - ($item->P_Price * $item->promotion->Promo_Discount / 100);
-            }
-        @endphp
 
-        <strong class="text-primary">
-            @if($discounted)
-                <span class="text-danger" style="text-decoration: line-through;">
-                    RM{{ number_format($item->P_Price, 2) }}
-                </span>
-                RM{{ number_format($discountPrice, 2) }}
-            @else
-                RM{{ number_format($item->P_Price, 2) }}
-            @endif
-        {{-- </strong> --}}
+                @if($item->P_Disc_Price && $item->P_Disc_Price < $item->P_Price)
+    <span style="text-decoration: line-through; color: red;">
+        Before Promo RM{{ number_format($item->P_Price, 2) }}
+            </span>
+            <strong class="text-success">After Promo RM{{ number_format($item->P_Disc_Price, 2) }}</strong>
+        @else
+            <strong class="text-primary">RM{{ number_format($item->P_Price, 2) }}</strong>
+@endif
 
            
             </h3> 
@@ -165,13 +155,7 @@
                 <input type="hidden" name="booktime" value="{{ $booktime }}">
                 <input type="hidden" name="booktable" value="{{ $booktable }}">
                 
-                   {{-- <div class="quantity input-group me-3 mb-2 ms-auto"> --}}
-                        {{-- <div class="quantity input-group mb-2"> <!-- Removed me-3, added pe-3 -->
-    
-                    <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
-                    <input type="number" step="1" max="10" value="1" name="Pro_qty" class="quantity-field border-0 text-center w-80" style="width: 80px;">
-                    <input type="button" value="+" class="button-plus border rounded-circle icon-shape icon-sm mx-1 changeQuantity" data-field="Pro_qty">
-                </div> --}}
+
                 <div class="d-flex justify-content-end align-items-center mb-2">
 <div class="input-group quantity" style="margin-right: 40px;">
                     <input type="button" value="-" class="button-minus border rounded-circle icon-shape icon-sm me-1 changeQuantity" data-field="Pro_qty">
@@ -200,12 +184,6 @@
 @endforeach
                     </div>
 
-
-
-                        {{-- Update New photo 10 May 2025 --}}
-                        {{-- <div class="col-lg-5 d-none d-lg-block">
-                            <img src="asset/img/menu-friedrice-big.png" alt="Image">
-                        </div> --}}
                     </div>
                 </div>
             @endforeach
@@ -272,16 +250,12 @@ $('.input-group').on('click', '.button-minus', function(e) {
 });
 </script>
 
-<script>
     
+    <script>
     // Auto-reload the page every 2 minutes (120000 milliseconds)
     //60000 milliseconds = 1 minute
     setInterval(function () {
         location.reload();
     }, 60000); // 1 minutes
 </script>
-
-
-    
-{{-- <script> --}}
 @endsection 
