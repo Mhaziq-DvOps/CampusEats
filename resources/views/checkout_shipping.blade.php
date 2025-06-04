@@ -184,7 +184,6 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 </div>
 
 <?php
-// \Stripe\Stripe::setApiKey('sk_test_51Q7u8j2L1aVEtKIRHG670oCl9ogBxkSVcURtf2w8T2eStpIdPmKFrFGgV2GQwgIM09NILPLMs3xgmdJCe56nAcxJ00PjNu8Gz9');
 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
 $session = \Stripe\Checkout\Session::create([
@@ -205,7 +204,6 @@ $session = \Stripe\Checkout\Session::create([
 ?>
 
 @endsection
-   {{-- const stripe = Stripe('pk_test_51Q7u8j2L1aVEtKIRAE0zyXAqi8nZNX6M5UOrnrDiy10jKnAVJuwvsZmi2kkoQB5xPCd8AlGPmz7i2cJuJyQ17Ybi00FTMzZOFw'); --}}
 
 @section('scripts')
 <script>
