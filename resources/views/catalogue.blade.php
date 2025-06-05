@@ -117,9 +117,7 @@
         </div>
         <div class="menu-text flex-grow-1">
             <h3 class="d-flex justify-content-between align-items-center">
-                <a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a>
-                {{-- <strong class="text-primary">RM{{ number_format((float) $item->P_Price, 2, '.', '') }}</strong> --}}
-                
+                <a href="detail/{{$item->P_Id}}">{{$item->P_Name}}</a>                
 
                 @if($item->P_Disc_Price && $item->P_Disc_Price < $item->P_Price)
     <span style="text-decoration: line-through; color: red;">
