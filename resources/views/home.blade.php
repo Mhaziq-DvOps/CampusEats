@@ -33,6 +33,7 @@
         <div class="d-flex justify-content-center gap-3">
             <a href="/catalogue" class="btn btn-light btn-lg px-4">Order Now</a>
             <a href="#features" class="btn btn-light btn-lg px-4">Learn More</a>
+            <h1>Welcome to CampusEats</h1>
         </div>
     </div>
 
@@ -53,8 +54,7 @@
            <h2 class="fw-bold text-primary">Pomotions</h2> 
 
         <p class="lead mb-4">Items currently on promotioning</p>
-            {{-- <p class="text-muted">Exclusive items currently on promotion</p> --}}
-        {{-- </div> --}}
+        
 
         @if($promotedProducts && count($promotedProducts) > 0)
         <div class="row g-4">
