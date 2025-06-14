@@ -51,7 +51,7 @@
                             <form action="{{ route('payment.update', $payment->PM_Id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-                                <!-- Textual inputs start -->
+                                <!-- Edit Payment Type here -->
                             <div class="col-12 mt-5" >
                                 <div class="card">
                                     <div class="card-body">

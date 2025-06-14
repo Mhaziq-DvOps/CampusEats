@@ -33,7 +33,7 @@
         <div class="d-flex justify-content-center gap-3">
             <a href="/catalogue" class="btn btn-light btn-lg px-4">Order Now</a>
             <a href="#features" class="btn btn-light btn-lg px-4">Learn More</a>
-            <h1>Welcome to CampusEats</h1>
+           
         </div>
     </div>
 

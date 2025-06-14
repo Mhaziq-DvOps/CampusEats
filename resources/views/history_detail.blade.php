@@ -34,11 +34,6 @@
                   <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                     <p class="text-muted mb-0 small">{{$order->O_Notes}}</p>
                   </div>
-                  {{-- @if($order->O_Status=='4' && $item-> rstatus== 0)
-                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                    <p class="text-muted mb-0 small"><a href= "/write-review/{{$item->products->P_Id}}">Write Review</a></p>
-                  </div>
-                  @endif --}}
                   @if($order->O_Status == '5')
                 <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                     @if($item->rstatus == 0)

@@ -9,15 +9,9 @@
                 </div>
                 @foreach ($list as $item)
                 <centre><div>
-                
                </centre></div>
                 <div class="panel panel-primary">
-
-
                 <table class="table table-hover">
-
-                
-
                 <tr>
                     <th>Name</th>
                     <td>{{$item->name }}</td>

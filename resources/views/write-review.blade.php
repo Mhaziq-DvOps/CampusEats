@@ -10,11 +10,9 @@
             @foreach ($list as $item)
                 <div class="card-header">Write a review for <span style="color: #00224e;">{{$item->P_Name}}</span></div>
                 <input type="hidden" name="pid" value= "{{$item ->P_Id}}">
-                
             @endforeach
                 <div class="card-body">
                 <div class="card-body">
-
                 <hr>
                 @if(Session::get('success'))
                 <div class="alert alert-success">
@@ -30,10 +28,6 @@
                     <form  action="/submitReview" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="pid" value= "{{$item ->P_Id}}" >
-                    
-
-               
-
                     <div class="form-group row" id= "R_Rating">
 
                             <div class="col-md-8 offset-md-2">

@@ -168,7 +168,6 @@
 						<div class="col-12 col-lg-6 col-xxl-6 d-flex">
 							<div class="card flex-fill">
 								<div class="s-report-title d-flex justify-content-between" style="padding:25px 25px 0px 25px">
-                                    {{-- <h4 class="header-title mb-0">Top 5 Spender Customer</h4> --}}
                                     <select class="header-title mb-0" style="padding:6px; border:0;" onchange="drawStuff()" id="dataCustomerRank">
                                         <option value="0" selected="">Top Spender Customer</option>
                                         <option value="1">Top Frequent Customer</option>
@@ -778,6 +777,14 @@
     </script>
     
 
+
+    <script>
+    // Auto-reload the page every 2 minutes (120000 milliseconds)
+    //60000 milliseconds = 1 minute
+    setInterval(function () {
+        location.reload();
+    }, 60000); // 1 minutes
+</script>
 </body>
 
    

@@ -107,7 +107,7 @@ class ProductController extends Controller
     }
     function search(Request $req)
     {
-         $query = $req->input('query'); // ✅ define $query
+         $query = $req->input('query'); //  define $query
 
         $data = Product::where('P_Name', 'like', '%' . $req->input('query') . '%')->get();
          $promotedProducts = Product::whereNotNull('P_Disc_Price')

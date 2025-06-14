@@ -85,72 +85,41 @@
                     <a href="">Farah Food Hub</a>
                     <a href="">CampusEats</a>
                     <a href="">Food</a>
-                    {{-- <a href="">Delivery</a>
-                    <a href="">Dine In</a>
-                    <a href="">Take Away</a>
-                    <a href="">Booking</a> --}}
                 </div>
 
+            <div class="single-comment">
+    <h2>Reviews</h2>
 
-                <div class="single-comment">
-                    <h2>Reviews</h2>
+    @foreach ($review as $reviews)
+        <div class="comment-body">
+            <div class="comment-text">
+                <h3>{{ $reviews->userReview->name }}</h3>
+                <table>
+                    <tr style="padding:5px; font-size:12px;">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <td>
+                                <span class="fa fa-star {{ $reviews->R_Rating >= $i ? 'checked' : '' }}"></span>
+                            </td>
+                        @endfor
+                    </tr>
+                </table>
 
-                    
-                        
-                       @foreach ($review as $reviews)
-                            
-                                    <div class="comment-body">
-                                        {{-- <div class="comment-img">
-                                            <img src="asset/img/user3.png" />
-                                        </div> --}}
-                                        <div class="comment-text">
-                                      
-                                            <h3>{{ $reviews->userReview->name}}</h3>
-                                        <table >
-                                        
-                                        {{-- <tr style="padding:5px; font-size:12px;">
-                                            <td><span class="fa fa-star checked"></span></td>
-                                            <td><span class="fa fa-star checked"></span></td>
-                                            <td><span class="fa fa-star checked"></span></td>
-                                            <td><span class="fa fa-star"></span></td>
-                                            <td><span class="fa fa-star"></span></td>
-                                            </tr>
-                                      --}}
-                                        @foreach ($review as $reviews)
-                           
-                                      <tr style="padding:5px; font-size:12px;">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <td>
-                                                <span class="fa fa-star {{ $reviews->R_Rating >= $i ? 'checked' : '' }}"></span>
-                                            </td>
-                                        @endfor
-                                    </tr>
-                                       <!-- Show review data -->
-                                        @endforeach
-                                        </table>
-                                         
-                                            <p><span>
-                                            @php
-                                            $date = Carbon::parse($reviews->created_at)->format('d-m-Y');
-                                            echo $date;
-                                            @endphp
-                                            </span></p>
-                                            <p>
-                                            {{ $reviews->R_Comment}}
-                                            </p>
-                                            
-                                            @if ($reviews->R_Image == null)
-                                           
-                                            @else
-                                            <p><img class=imagereview src = "{{asset('images/'. $reviews->R_Image)}}" ></p>
-                                            @endif
-                                           
-                                            <!-- <a class="btn" href="">Reply</a> -->
-                                        </div>
-                                    </div>
-                               
-                        @endforeach
-                </div>
+                <p>
+                    <span>
+                        {{ \Carbon\Carbon::parse($reviews->created_at)->format('d-m-Y') }}
+                    </span>
+                </p>
+
+                <p>{{ $reviews->R_Comment }}</p>
+
+                @if ($reviews->R_Image)
+                    <p><img class="imagereview" src="{{ asset('images/' . $reviews->R_Image) }}"></p>
+                @endif
+            </div>
+        </div>
+    @endforeach
+</div>
+
                
             </div>
 

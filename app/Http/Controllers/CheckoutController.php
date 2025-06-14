@@ -139,14 +139,7 @@ class CheckoutController extends Controller
         $logs->save();
 
         $cartitems = Cart::where('Cust_Id', Auth::id())->get();
-        // foreach ($cartitems as $item) {
-        //     OrderProduct::create([
-        //         'Order_Id' => $order->id,
-        //         'P_Id' => $item->Pro_Id,
-        //         'Order_Quantity' => $item->Pro_Qty,
-        //         'Order_Price' => $item->products->P_Price * $item->Pro_Qty,
-        //     ]);
-        // }
+
 
         foreach ($cartitems as $item) {
         $product = $item->products;

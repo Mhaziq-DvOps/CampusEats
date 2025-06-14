@@ -15,8 +15,15 @@
         </thead>
       
         <tbody>
+    @php
+        $hasPending = false;
+    @endphp
+
+
+
     @forelse($orders as $order)
         @if($order->O_Status != 5) {{-- Skip orders that are picked up --}}
+         @php $hasPending = true; @endphp
         <tr>
             <td>{{ $order->id }}</td>
             <td>{{ number_format($order->O_Total_Price, 2) }}</td>
@@ -41,11 +48,13 @@
             </td>
         </tr>
         @endif
-    @empty
-    <tr>
-        <td colspan="5">You have no orders yet.</td>
+        @endforeach
+    @if (!$hasPending)
+            <tr>
+            <td colspan="5" class="text-center text-muted">No pending orders for now.</td>
     </tr>
-    @endforelse
+    @endif
+
 </tbody>
 
 

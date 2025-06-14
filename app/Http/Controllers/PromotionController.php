@@ -82,7 +82,6 @@ class PromotionController extends Controller
     {
         $promotion = Promotion::find($id);
 
-        // show the view and pass the shark to it
         return view('layouts.promotion-detail', ['promotion' => $promotion]);
     }
 

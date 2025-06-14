@@ -37,10 +37,15 @@ class CustAnalyticsController extends Controller
         }
 
 
-        $todCust = DB::SELECT("SELECT COUNT(DISTINCT User_Id) as total FROM customer_order Where created_at >= DATE(SYSDATE())");
+        // $todCust = DB::SELECT("SELECT COUNT(DISTINCT User_Id) as total FROM customer_order Where created_at >= DATE(SYSDATE())");
+        // foreach ($todCust as $row) {
+        //     $todayCustomer = "$row->total";
+        // }
+        $todCust = DB::SELECT("SELECT COUNT(DISTINCT User_Id) as total FROM customer_order WHERE DATE(created_at) = CURDATE()");
         foreach ($todCust as $row) {
-            $todayCustomer = "$row->total";
+            $todayCustomer = $row->total;
         }
+
 
         $newCust = DB::SELECT("SELECT count(*) as new from users where created_at between date_sub(now(),INTERVAL 1 WEEK) and now();");
         foreach ($newCust as $row) {
