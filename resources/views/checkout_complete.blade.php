@@ -22,8 +22,13 @@
                  @elseif($order->O_Status == 3)
                     <span class="badge bg-warning">Ready</span>
                
-                   @elseif($order->O_Status == 2)
+                   {{-- @elseif($order->O_Status == 2)
+                    <span class="badge bg-warning">Preparing</span> --}}
+                    @elseif($order->O_Status == 2)
                     <span class="badge bg-warning">Preparing</span>
+                    <br>
+                    <small><strong>Time Elapsed:</strong> <span id="elapsed-time" class="text-danger"></span></small>
+            
 
                    @elseif($order->O_Status == 1)
                     <span class="badge bg-warning">Order Receive</span>
@@ -64,6 +69,11 @@
             </table>
 
         <h5>Total: RM {{ number_format($totalPrice, 2) }}</h5>
+        <!-- Informational text -->
+            <div class="alert alert-info mt-3">
+                <strong>Note:</strong> Customers are allowed to cancel the order only if the status is still <em>Order Receive</em>. 
+                The system will automatically cancel orders that remain in the <em>Preparing</em> status for more than 10 minutes.
+            </div>
              @if ($order->O_Status == 1)
             <form action="{{ route('order.cancel', ['id' => $order->id]) }}" method="POST" onsubmit="return confirm('Adakah anda pasti ingin batalkan order ini?');">
                 @csrf
@@ -82,6 +92,8 @@
 </div>
 
 
+
+
 <script>
     // Auto-reload the page every 2 minutes (120000 milliseconds)
     //60000 milliseconds = 1 minute
@@ -89,6 +101,31 @@
         location.reload();
     }, 60000); // 1 minutes
 </script>
+@if($order->O_Status == 2)
+<script>
+    const orderUpdatedAt = new Date("{{ $order->updated_at }}").getTime();
+
+    function updateElapsedTime() {
+        const now = new Date().getTime();
+        const diff = now - orderUpdatedAt;
+
+        const minutes = Math.floor(diff / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        let timeText = `${minutes}m ${seconds}s`;
+
+        if (minutes >= 10) {
+            timeText += " (Exceeded 10 minutes)";
+            document.getElementById('elapsed-time').classList.add('fw-bold');
+        }
+
+        document.getElementById('elapsed-time').innerText = timeText;
+    }
+
+    setInterval(updateElapsedTime, 1000);
+    updateElapsedTime(); // initial call
+</script>
+@endif
 
 
 @endsection

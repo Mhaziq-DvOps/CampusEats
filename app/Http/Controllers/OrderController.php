@@ -143,6 +143,18 @@ class OrderController extends Controller
 
 
 
+// public function checkoutComplete($orderId)
+// {
+//     $order = Order::find($orderId);
+
+//     if (!$order) {
+//         return redirect('/')->with('error', 'Order not found');
+//     }
+
+//     return view('checkout_complete', compact('order'));
+// }
+
+
 public function checkoutComplete($orderId)
 {
     $order = Order::find($orderId);
@@ -151,9 +163,21 @@ public function checkoutComplete($orderId)
         return redirect('/')->with('error', 'Order not found');
     }
 
+    // Check if the order is "Preparing" (status = 2) and older than 10 minutes
+    if ($order->O_Status == 2 && $order->updated_at < now()->subMinutes(value: 10)) {
+        $order->O_Status = 0; // Auto-cancel the order
+        $order->save();
+
+        return view('checkout_complete', compact('order'))
+            ->with('error', 'Order was automatically cancelled due to timeout.');
+    }
+
     return view('checkout_complete', compact('order'));
 }
-        public function cancelOrder($id)
+
+
+
+    public function cancelOrder($id)
         {
             $order = Order::findOrFail($id);
 
