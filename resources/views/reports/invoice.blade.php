@@ -28,7 +28,7 @@
         <div class="col-xs-6 text-center">
 <center>
             <br>
-            <img src="/images/farahBanner.png" width="30%">
+            <img src="/images/farahBanner.png" width="30%"><img src="/images/farahBanner.png" width="30%">
         </div>
         <div class="col-xs-6 text-right">
             @php

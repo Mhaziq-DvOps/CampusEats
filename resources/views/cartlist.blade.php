@@ -79,37 +79,26 @@
                     <label for="extra">Notes</label>
                     <input id="extranotes" type="text" name="extranotes" placeholder="extra request" class="notes">
 
-                    <div class="pricing">
-                        <div class="basket-labels">
-                            <ul>
-                                <li class="quantity">Subtotal</li>
-                                <li class="quantity">Total Price</li>
-                            </ul>
-                        </div>
-                        <div class="price total-price">{{ number_format($totalPrice, 2, '.', '') }}</div>
-                        <div class="price total-price">{{ number_format($totalPrice, 2, '.', '') }}</div>
 
-                        <div class="checkout-button">
+                    <div class="pricing text-end">
+                        <h5>Total: RM <span class="total-price">RM{{ number_format($totalPrice, 2, '.', '') }}</span></h5>
+                        <div class="mt-3">
                             <a href="/catalogue" class="btn btn-warning">Continue Shopping</a>
-                            <button type="submit" class="btn btn-warning">Proceed to checkout</button>
+                            <button type="submit" class="btn btn-success">Proceed to checkout</button>
                         </div>
                     </div>
                 </form>
             @else
-                <div class="basket-product">
-                    <div class="item">
-                        <div class="product-details">
-                            <h4><strong>Cart is empty</strong></h4>
-                        </div>
-                    </div>
-                    <div class="checkout-button">
-                        <a href="/catalogue" class="btn btn-warning">Continue Shopping</a>
-                    </div>
+                <div class="text-center my-5">
+                    <h4><strong>Cart is empty</strong></h4>
+                    <a href="/catalogue" class="btn btn-warning mt-3">Continue Shopping</a>
                 </div>
             @endif
         </div>
     </div>
 </div>
+
+
 <!-- Cart End -->
 
 @endsection
@@ -177,5 +166,13 @@ $(document).ready(function () {
     // Initial calculation
     updateTotals();
 });
+</script>
+
+<script>
+    // Auto-reload the page every 2 minutes (120000 milliseconds)
+    //60000 milliseconds = 1 minute
+    setInterval(function () {
+        location.reload();
+    }, 60000); // 1 minutes
 </script>
 @endsection

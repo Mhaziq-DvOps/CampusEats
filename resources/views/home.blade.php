@@ -29,7 +29,7 @@
 </head> 
     <div class="py-5 text-center bg-light border-bottom shadow-sm">
         <h1 class="display-3 fw-bold mb-3">Welcome to <span class="text-warning">CampusEats</span></h1>
-        <p class="lead mb-4">Your hassle-free solution for delicious campus dining</p>
+        <p class="lead mb-4">Hassle-free solution for Convenience campus dining</p>
         <div class="d-flex justify-content-center gap-3">
             <a href="/catalogue" class="btn btn-light btn-lg px-4">Order Now</a>
             <a href="#features" class="btn btn-light btn-lg px-4">Learn More</a>
@@ -150,49 +150,49 @@
                     </div>          
 
 <!-- Service Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="row g-4">
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                                <h5>Customer Satisfaction</h5>
-                                <p>The selected quality foods to serve you goods</p>
-                            </div>
-                        </div>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row justify-content-center g-4">
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item rounded pt-3 text-center">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
+                        <h5>Customer Satisfaction</h5>
+                        <p>The selected quality foods to serve you goods</p>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
-                                <h5>Quality Food</h5>
-                                <p>Freshly cooked food</p>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item rounded pt-3 text-center">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
+                        <h5>Quality Food</h5>
+                        <p>Freshly cooked food</p>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
-                                <h5>Online Order</h5>
-                                <p>Avaiable for online order</p>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item rounded pt-3 text-center">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
+                        <h5>Online Order</h5>
+                        <p>Available for online order</p>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="service-item rounded pt-3">
-                            <div class="p-4">
-                                <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                                <h5>Service Methods</h5>
-                                <p>Offers a fast service</p>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="service-item rounded pt-3 text-center">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-headset text-primary mb-4"></i>
+                        <h5>Service Methods</h5>
+                        <p>Offers a fast service</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Service End -->
+    </div>
+</div>
+<!-- Service End -->
 
                 </div>
             </div>
@@ -252,7 +252,7 @@
 </section>
 
 
-<!-- Features Section -->
+
 <!-- Features Section -->
 <section id="features" class="py-5 bg-white">
     <div class="container">
